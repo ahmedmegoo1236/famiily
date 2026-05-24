@@ -1,0 +1,1233 @@
+@import url('https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Cairo:wght@300;400;600;700;900&family=Inter:wght@400;500;600;700&display=swap');
+
+/* ==========================================================================
+   🌙 نظام السمة الفاخرة – Midnight Steel-Blue & Slate White Edition
+   ========================================================================== */
+
+/* ── Default = Light (Slate White) ── */
+:root {
+  --bg-primary:    #F4F6F9; /* Soft platinum slate - cool and clean */
+  --bg-secondary:  #E8ECF2; /* Very light cool blue-grey */
+  --bg-card:       #FFFFFF; /* Pure white card surface */
+  --bg-card-hover: #F0F3F8; /* Hovered card - subtle blue tint */
+  --bg-glass:      rgba(255, 255, 255, 0.80);
+  --bg-input:      #FFFFFF;
+
+  --text-primary:   #1A2236; /* Deep midnight navy - excellent contrast */
+  --text-secondary: #4A5B7A; /* Steel blue-grey - very readable */
+  --text-muted:     #8A9AB8; /* Muted cool slate */
+
+  --gold:           #C5973A; /* Warm gold accent - unchanged */
+  --gold-light:     #E0B55A;
+  --gold-dim:       rgba(197, 151, 58, 0.10);
+  --gold-glow:      rgba(197, 151, 58, 0.20);
+  --gold-border:    rgba(197, 151, 58, 0.30);
+
+  --border:         rgba(30, 50, 90, 0.10);
+  --border-strong:  rgba(197, 151, 58, 0.28);
+
+  --shadow-card:    0 4px 24px rgba(26,34,54,0.08), 0 1px 4px rgba(26,34,54,0.05);
+  --shadow-hover:   0 12px 40px rgba(26,34,54,0.14), 0 0 24px rgba(197,151,58,0.10);
+  --shadow-modal:   0 24px 64px rgba(26,34,54,0.22);
+  --shadow-glow:    0 0 28px rgba(197,151,58,0.16);
+
+  --modal-bg:       rgba(244, 246, 249, 0.97);
+  --blur-glass:     blur(24px);
+
+  --font-title: 'Amiri', serif;
+  --font-body:  'Cairo', sans-serif;
+  --radius:     1rem;
+  --radius-lg:  1.5rem;
+  --speed:      0.3s;
+}
+
+/* ── Dark Theme (Indigo-Violet Midnight) ── */
+[data-theme="dark"] {
+  --bg-primary:    #0b0f19; /* Deep violet-midnight base */
+  --bg-secondary:  #0f172a; /* Dark charcoal-navy */
+  --bg-card:       rgba(30, 41, 59, 0.75); /* Semi-transparent indigo-slate card */
+  --bg-card-hover: rgba(51, 65, 85, 0.85); /* Brighter hovered card */
+  --bg-glass:      rgba(15, 23, 42, 0.82);
+  --bg-input:      #1e293b;
+
+  --text-primary:   #f1f5f9; /* Crisp bright white */
+  --text-secondary: #94a3b8; /* Slate-blue readable secondary */
+  --text-muted:     #475569; /* Muted dark slate */
+
+  --gold:           #a78bfa; /* Soft violet accent (matches image) */
+  --gold-light:     #c4b5fd;
+  --gold-dim:       rgba(139, 92, 246, 0.10);
+  --gold-glow:      rgba(139, 92, 246, 0.20);
+  --gold-border:    rgba(99, 102, 241, 0.35);
+
+  --border:         rgba(255, 255, 255, 0.07);
+  --border-strong:  rgba(99, 102, 241, 0.30);
+
+  --shadow-card:    0 8px 32px rgba(0,0,0,0.55), 0 2px 8px rgba(0,0,0,0.30);
+  --shadow-hover:   0 12px 40px rgba(0,0,0,0.65), 0 0 28px rgba(99, 102, 241, 0.22);
+  --shadow-modal:   0 28px 72px rgba(0,0,0,0.80);
+  --shadow-glow:    0 0 32px rgba(99, 102, 241, 0.20);
+
+  --modal-bg:       rgba(11, 15, 25, 0.98);
+  --primary-gradient: linear-gradient(135deg, #6366f1, #8b5cf6);
+  --blur-glass:     blur(32px);
+}
+
+/* ==========================================================================
+   🏗️ Base & Reset
+   ========================================================================== */
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  scrollbar-width: thin;
+  scrollbar-color: var(--gold) var(--bg-secondary);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  direction: rtl;
+  overflow-x: hidden;
+  transition: background-color var(--speed) ease, color var(--speed) ease;
+  line-height: 1.7;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+[data-theme="dark"] body,
+[data-theme="dark"] {
+  background: radial-gradient(ellipse at top, #1c1950 0%, #0b0f19 60%);
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 4px; height: 4px; }
+::-webkit-scrollbar-track { background: var(--bg-secondary); }
+::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: var(--gold-light); }
+
+/* Selection */
+::selection { background: var(--gold); color: #fff; }
+
+/* ==========================================================================
+   🎬 Animations & Keyframes
+   ========================================================================== */
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes slideInRight {
+  from { opacity: 0; transform: translateX(20px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes revealWord {
+  from { opacity: 0; transform: translateY(8px) scale(0.96); filter: blur(4px); }
+  to   { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }
+}
+
+@keyframes hideWord {
+  from { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }
+  to   { opacity: 0; transform: translateY(-8px) scale(0.96); filter: blur(4px); }
+}
+
+@keyframes goldPulse {
+  0%, 100% { box-shadow: 0 0 0 0 var(--gold-glow); }
+  50%       { box-shadow: 0 0 0 8px transparent; }
+}
+
+@keyframes shimmer {
+  0%   { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+@keyframes nodePulse {
+  0%   { r: 12px; opacity: 0.8; stroke-width: 1.5px; }
+  100% { r: 50px; opacity: 0; stroke-width: 0.5px; }
+}
+
+@keyframes wpBeat {
+  0%, 100% { transform: scale(1); }
+  50%       { transform: scale(1.03); }
+}
+
+.fade-in     { animation: fadeIn var(--speed) ease-out forwards; }
+.fade-in-up  { animation: fadeInUp 0.45s cubic-bezier(0.16,1,0.3,1) forwards; }
+.reveal-word {
+  opacity: 0;
+  display: inline-block;
+  animation: revealWord 0.55s cubic-bezier(0.16,1,0.3,1) forwards;
+}
+.hide-word {
+  opacity: 1;
+  display: inline-block;
+  animation: hideWord 0.4s cubic-bezier(0.16,1,0.3,1) forwards;
+}
+
+/* ==========================================================================
+   🔐 Login Screen – Ultra Premium
+   ========================================================================== */
+
+#login-screen {
+  background: var(--bg-primary);
+  background-image:
+    radial-gradient(ellipse 80% 60% at 50% -20%, rgba(212,168,83,0.08) 0%, transparent 70%),
+    radial-gradient(ellipse 60% 40% at 80% 100%, rgba(212,168,83,0.04) 0%, transparent 60%);
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.login-card {
+  background: var(--bg-glass);
+  backdrop-filter: var(--blur-glass);
+  -webkit-backdrop-filter: var(--blur-glass);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-modal), var(--shadow-glow);
+  padding: 2.5rem;
+  width: 100%;
+  max-width: 420px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.login-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+}
+
+.login-logo-ring {
+  width: 96px;
+  height: 96px;
+  border-radius: 50%;
+  padding: 3px;
+  background: conic-gradient(var(--gold), var(--gold-light), var(--gold), transparent 60%, var(--gold) 100%);
+  margin: 0 auto 1.5rem;
+  position: relative;
+  animation: goldPulse 3s ease-in-out infinite;
+}
+
+.login-logo-ring::after {
+  content: '';
+  position: absolute;
+  inset: 3px;
+  border-radius: 50%;
+  background: var(--bg-card);
+}
+
+.login-logo-ring img {
+  position: absolute;
+  inset: 3px;
+  width: calc(100% - 6px);
+  height: calc(100% - 6px);
+  border-radius: 50%;
+  object-fit: cover;
+  z-index: 1;
+}
+
+/* ==========================================================================
+   🏠 Header – Sticky Glassmorphism
+   ========================================================================== */
+
+/* ==========================================================================
+   🏠 Header – Sticky Glassmorphism
+   ========================================================================== */
+
+header {
+  background: var(--bg-glass);
+  backdrop-filter: var(--blur-glass);
+  -webkit-backdrop-filter: var(--blur-glass);
+  border-bottom: 1px solid var(--border);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  transition: background var(--speed) ease, backdrop-filter var(--speed) ease;
+  box-shadow: 0 1px 24px rgba(0,0,0,0.08);
+}
+
+[data-theme="dark"] header {
+  background: rgba(11, 15, 25, 0.75);
+  border-bottom-color: rgba(99, 102, 241, 0.18);
+  box-shadow: 0 1px 32px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(99,102,241,0.08);
+}
+
+header::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold-border), transparent);
+  pointer-events: none;
+}
+
+/* Responsive Premium Header Layout */
+.header-container {
+  max-width: 72rem;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  position: relative;
+  min-height: 76px;
+}
+
+.header-right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: right;
+  flex: 1;
+}
+
+.brand-link {
+  text-decoration: none;
+  display: inline-block;
+}
+
+.brand-title {
+  font-family: var(--font-title);
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  display: inline-block;
+  letter-spacing: 0.01em;
+}
+
+.static-credit-line {
+  font-size: 0.68rem;
+  color: var(--text-secondary);
+  font-weight: 600;
+  margin-top: 0.2rem;
+  letter-spacing: 0.02em;
+}
+
+.header-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.6rem;
+  flex: 1;
+}
+
+/* Glowing Capsule Credit Bubble – Premium Center Badge */
+.author-bubble {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  background: rgba(197, 151, 58, 0.09);
+  border: 1.5px solid rgba(197, 151, 58, 0.45);
+  padding: 0.55rem 1.6rem;
+  border-radius: 50px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  font-family: var(--font-body);
+  white-space: nowrap;
+  animation: pulse-glow-gold 3.5s ease-in-out infinite;
+  transition: all 0.35s ease;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  box-shadow:
+    0 0 14px rgba(197, 151, 58, 0.22),
+    0 2px 18px rgba(0,0,0,0.08),
+    inset 0 0 10px rgba(197, 151, 58, 0.06);
+  cursor: pointer;
+  user-select: none;
+  letter-spacing: 0.01em;
+  color: var(--text-primary);
+}
+
+.author-bubble:hover {
+  transform: scale(1.05) translateY(-1px);
+  box-shadow:
+    0 0 30px rgba(197, 151, 58, 0.50),
+    0 4px 24px rgba(0,0,0,0.12),
+    inset 0 0 16px rgba(197, 151, 58, 0.10);
+  border-color: rgba(197, 151, 58, 0.70);
+}
+
+.author-bubble span {
+  color: var(--text-primary);
+  font-weight: 600;
+  font-size: 0.82rem;
+}
+
+.author-bubble span.highlight-name {
+  color: var(--gold);
+  font-weight: 900;
+  font-size: 0.85rem;
+  text-shadow:
+    0 0 14px rgba(197, 151, 58, 0.40),
+    0 0 28px rgba(197, 151, 58, 0.20);
+  letter-spacing: 0.03em;
+}
+
+/* Dark mode bubble – Indigo Violet */
+[data-theme="dark"] .author-bubble {
+  background: rgba(99, 102, 241, 0.12);
+  border: 1.5px solid rgba(99, 102, 241, 0.50);
+  animation: pulse-glow-purple 3.5s ease-in-out infinite;
+  box-shadow:
+    0 0 16px rgba(99, 102, 241, 0.25),
+    0 2px 18px rgba(0,0,0,0.25),
+    inset 0 0 10px rgba(99, 102, 241, 0.08);
+  color: #e2e8f0;
+}
+
+[data-theme="dark"] .author-bubble:hover {
+  box-shadow:
+    0 0 36px rgba(99, 102, 241, 0.55),
+    0 4px 28px rgba(0,0,0,0.35),
+    inset 0 0 18px rgba(99, 102, 241, 0.12);
+  border-color: rgba(139, 92, 246, 0.70);
+}
+
+[data-theme="dark"] .author-bubble span {
+  color: #cbd5e1;
+  font-weight: 600;
+}
+
+[data-theme="dark"] .author-bubble span.highlight-name {
+  color: #a78bfa;
+  font-weight: 900;
+  text-shadow:
+    0 0 16px rgba(139, 92, 246, 0.55),
+    0 0 32px rgba(139, 92, 246, 0.30);
+}
+
+[data-theme="dark"] .author-bubble i {
+  color: #818cf8;
+}
+
+@keyframes pulse-glow-gold {
+  0%, 100% {
+    box-shadow: 0 0 10px rgba(197, 151, 58, 0.22), inset 0 0 6px rgba(197, 151, 58, 0.06);
+    border-color: rgba(197, 151, 58, 0.42);
+  }
+  50% {
+    box-shadow: 0 0 28px rgba(197, 151, 58, 0.58), inset 0 0 14px rgba(197, 151, 58, 0.14);
+    border-color: rgba(197, 151, 58, 0.70);
+  }
+}
+
+@keyframes pulse-glow-purple {
+  0%, 100% {
+    box-shadow: 0 0 10px rgba(99, 102, 241, 0.22), inset 0 0 6px rgba(99, 102, 241, 0.07);
+    border-color: rgba(99, 102, 241, 0.42);
+  }
+  50% {
+    box-shadow: 0 0 32px rgba(139, 92, 246, 0.60), inset 0 0 16px rgba(139, 92, 246, 0.14);
+    border-color: rgba(139, 92, 246, 0.75);
+  }
+}
+
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .header-container {
+    flex-wrap: nowrap;
+    padding: 0.5rem 1rem;
+    min-height: 60px;
+  }
+  .header-right {
+    flex: 1;
+    text-align: right;
+  }
+  .header-left {
+    flex: 1;
+    justify-content: flex-end;
+    gap: 0.4rem;
+  }
+  .brand-title {
+    font-size: 1.15rem;
+  }
+  header a[href*="whatsapp"] {
+    padding: 0.45rem !important;
+    width: 36px;
+    height: 36px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50% !important;
+  }
+}
+
+
+/* ==========================================================================
+   🃏 Card System – The Heart of the Design
+   ========================================================================== */
+
+/* Base Card */
+.lux-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  box-shadow: var(--shadow-card);
+  transition: transform 0.35s cubic-bezier(0.16,1,0.3,1),
+              box-shadow 0.35s ease,
+              border-color 0.35s ease,
+              background 0.35s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.lux-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--gold-border), transparent);
+  opacity: 0;
+  transition: opacity 0.35s ease;
+}
+
+.lux-card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-hover);
+  border-color: var(--gold-border);
+  background: var(--bg-card-hover);
+}
+
+.lux-card:hover::before {
+  opacity: 1;
+}
+
+/* Icon Badge */
+.card-icon-badge {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: var(--gold-dim);
+  border: 1px solid var(--gold-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--gold);
+  font-size: 1.1rem;
+  flex-shrink: 0;
+  transition: transform var(--speed) ease, background var(--speed) ease;
+}
+
+.lux-card:hover .card-icon-badge {
+  transform: scale(1.08) rotate(-3deg);
+  background: var(--gold-glow);
+}
+
+/* Gold accent line below headings */
+.luxury-line {
+  position: relative;
+}
+.luxury-line::after {
+  content: '';
+  display: block;
+  width: 48px;
+  height: 2px;
+  background: linear-gradient(90deg, var(--gold), transparent);
+  margin-top: 6px;
+  border-radius: 2px;
+}
+
+/* ==========================================================================
+   🏠 Homepage Premium Section Cards
+   ========================================================================== */
+
+/* Top 3 feature cards */
+.feature-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  box-shadow: var(--shadow-card);
+  padding: 1.5rem;
+  height: 320px;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.35s cubic-bezier(0.16,1,0.3,1),
+              box-shadow 0.35s ease,
+              border-color 0.35s ease;
+}
+
+.feature-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  opacity: 0;
+  transition: opacity 0.35s ease;
+}
+
+.feature-card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-hover);
+  border-color: var(--gold-border);
+}
+
+.feature-card:hover::before {
+  opacity: 1;
+}
+
+/* Branch / Family sub-section cards */
+.branch-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
+  padding: 1.25rem;
+  height: 180px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+  overflow: hidden;
+  transition: transform var(--speed) ease,
+              box-shadow var(--speed) ease,
+              border-color var(--speed) ease;
+  text-decoration: none;
+  color: var(--text-primary);
+}
+
+.branch-card::after {
+  content: '';
+  position: absolute;
+  bottom: 0; right: 0;
+  width: 80px; height: 80px;
+  background: radial-gradient(circle, var(--gold-dim) 0%, transparent 70%);
+  border-radius: 50%;
+  opacity: 0;
+  transition: opacity var(--speed) ease;
+}
+
+.branch-card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-hover);
+  border-color: var(--gold-border);
+  color: var(--text-primary);
+}
+
+.branch-card:hover::after {
+  opacity: 1;
+}
+
+/* Master tree card (special gold) */
+.branch-card-master {
+  background: linear-gradient(135deg, #1C2B45 0%, #0D1117 100%);
+  border-color: rgba(212,168,75,0.45);
+}
+
+[data-theme="light"] .branch-card-master {
+  background: linear-gradient(135deg, #1A2748 0%, #243060 100%);
+  border-color: rgba(197,151,58,0.55);
+}
+
+.branch-card-master:hover {
+  border-color: var(--gold);
+  box-shadow: var(--shadow-hover), 0 0 40px rgba(212,168,83,0.2);
+}
+
+/* Member cards (directory / branch views) */
+.member-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  box-shadow: var(--shadow-card);
+  padding: 1.25rem;
+  height: 190px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform 0.35s cubic-bezier(0.16,1,0.3,1),
+              box-shadow 0.35s ease,
+              border-color 0.35s ease;
+}
+
+.member-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 16px;
+  opacity: 0;
+  transition: opacity 0.35s ease;
+  background: radial-gradient(ellipse at top right, rgba(197,151,58,0.05) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+[data-theme="dark"] .member-card::after {
+  background: radial-gradient(ellipse at top right, rgba(99,102,241,0.08) 0%, transparent 70%);
+}
+
+.member-card:hover {
+  transform: translateY(-5px) scale(1.008);
+  box-shadow: var(--shadow-hover);
+  border-color: var(--gold-border);
+}
+
+.member-card:hover::after {
+  opacity: 1;
+}
+
+/* Avatar ring */
+.avatar-ring {
+  border-radius: 50%;
+  border: 2px solid var(--border);
+  overflow: hidden;
+  background: var(--bg-secondary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--gold);
+  transition: border-color 0.35s ease, box-shadow 0.35s ease;
+  flex-shrink: 0;
+}
+
+.member-card:hover .avatar-ring {
+  border-color: var(--gold-border);
+  box-shadow: 0 0 12px var(--gold-glow);
+}
+
+/* ==========================================================================
+   🔍 Form Controls – Inputs, Selects, Buttons
+   ========================================================================== */
+
+.lux-input {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  background: var(--bg-input);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  direction: rtl;
+  transition: border-color var(--speed) ease, box-shadow var(--speed) ease;
+  outline: none;
+}
+
+.lux-input::placeholder { color: var(--text-muted); }
+
+.lux-input:focus {
+  border-color: var(--gold-border);
+  box-shadow: 0 0 0 3px var(--gold-dim);
+}
+
+.lux-select {
+  width: 100%;
+  padding: 0.65rem 1rem;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  direction: rtl;
+  outline: none;
+  transition: border-color var(--speed) ease;
+  cursor: pointer;
+}
+
+.lux-select:focus { border-color: var(--gold-border); }
+
+.lux-btn-gold {
+  background: linear-gradient(135deg, var(--gold) 0%, #C49240 100%);
+  color: #1A0F08;
+  font-weight: 700;
+  font-family: var(--font-body);
+  border: none;
+  border-radius: var(--radius);
+  padding: 0.75rem 1.5rem;
+  cursor: pointer;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, filter 0.25s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+  letter-spacing: 0.01em;
+}
+
+/* Dark mode: indigo-purple gradient button */
+[data-theme="dark"] .lux-btn-gold {
+  background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+  color: #ffffff;
+  box-shadow: 0 4px 16px rgba(99, 102, 241, 0.30);
+}
+
+.lux-btn-gold:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.10);
+  box-shadow: 0 8px 28px var(--gold-glow);
+}
+
+[data-theme="dark"] .lux-btn-gold:hover {
+  box-shadow: 0 8px 28px rgba(99, 102, 241, 0.45);
+}
+
+.lux-btn-gold:active { transform: scale(0.97); }
+
+.lux-btn-ghost {
+  background: transparent;
+  color: var(--text-secondary);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 0.65rem 1.25rem;
+  cursor: pointer;
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  transition: border-color var(--speed) ease, color var(--speed) ease, background var(--speed) ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.lux-btn-ghost:hover {
+  border-color: var(--gold-border);
+  color: var(--gold);
+  background: var(--gold-dim);
+}
+
+/* ==========================================================================
+   🌳 D3 Tree Styles
+   ========================================================================== */
+
+.tree-container {
+  width: 100%;
+  height: calc(100vh - 140px);
+  min-height: 500px;
+  position: relative;
+  background: var(--bg-secondary);
+  background-image: radial-gradient(circle at 50% 50%, rgba(212,168,83,0.03) 0%, transparent 60%);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  border: 1px solid var(--border);
+}
+
+.tree-link {
+  fill: none;
+  stroke: var(--gold);
+  stroke-opacity: 0.2;
+  stroke-width: 1.5px;
+  transition: stroke-opacity 0.2s, stroke-width 0.2s;
+}
+
+.tree-link.active {
+  stroke-opacity: 0.7;
+  stroke-width: 2.5px;
+}
+
+.tree-node-group {
+  cursor: pointer;
+  user-select: none;
+}
+
+.couple-box {
+  fill: var(--bg-card);
+  stroke: var(--border);
+  stroke-width: 1px;
+  rx: 14px;
+  ry: 14px;
+  transition: stroke 0.2s, fill 0.2s;
+}
+
+.tree-node-group:hover .couple-box {
+  stroke: var(--gold-border);
+  stroke-width: 1.5px;
+  fill: var(--bg-card-hover);
+}
+
+.node-pulse-circle {
+  fill: none;
+  stroke: var(--gold);
+  pointer-events: none;
+  animation: nodePulse 2s cubic-bezier(0.1,0.8,0.3,1) infinite;
+}
+
+.node-toggle-btn {
+  fill: var(--bg-card);
+  stroke: var(--gold);
+  stroke-width: 1px;
+  cursor: pointer;
+  transition: fill 0.2s;
+}
+
+.node-toggle-btn:hover { fill: var(--gold); }
+
+.node-toggle-text {
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: bold;
+  fill: var(--gold);
+  text-anchor: middle;
+  dominant-baseline: central;
+  pointer-events: none;
+}
+
+/* ==========================================================================
+   🖼️ Gallery Grid
+   ========================================================================== */
+
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 1.25rem;
+}
+
+.gallery-card {
+  position: relative;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-card);
+  transition: transform var(--speed) ease, border-color var(--speed) ease;
+}
+
+.gallery-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--gold-border);
+}
+
+.gallery-card img {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+  display: block;
+}
+
+.gallery-card:hover img { transform: scale(1.05); }
+
+.gallery-overlay {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.88) 0%, rgba(0,0,0,0.3) 60%, transparent 100%);
+  padding: 1.25rem;
+  color: #fff;
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+.gallery-card:hover .gallery-overlay {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ==========================================================================
+   💬 Modal System
+   ========================================================================== */
+
+.modal-backdrop {
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  background: var(--modal-bg);
+  transition: opacity 0.25s ease;
+}
+
+.modal-content {
+  background: var(--bg-card);
+  border: 1px solid var(--border-strong);
+  box-shadow: var(--shadow-modal);
+  border-radius: var(--radius-lg);
+  transform: scale(0.96) translateY(8px);
+  opacity: 0;
+  transition: transform 0.28s cubic-bezier(0.16,1,0.3,1), opacity 0.28s ease;
+}
+
+.modal-active .modal-content {
+  transform: scale(1) translateY(0);
+  opacity: 1;
+}
+
+/* ==========================================================================
+   🕌 Quran & Adhkar Sections
+   ========================================================================== */
+
+#quran-full-text {
+  font-family: 'Amiri', serif;
+  line-height: 2.8;
+  color: var(--text-primary);
+  text-align: center;
+}
+
+#adhkar-content-text {
+  transition: opacity 0.2s ease;
+  color: var(--text-secondary);
+  font-style: italic;
+  text-align: center;
+  line-height: 1.9;
+}
+
+#tasbeeh-count {
+  transition: transform 0.15s ease;
+  color: var(--text-primary);
+  font-weight: 900;
+}
+
+#deceased-dua-text {
+  transition: opacity 0.25s ease;
+  font-style: italic;
+  color: var(--text-secondary);
+  line-height: 1.9;
+}
+
+/* ==========================================================================
+   📱 Utility Classes – replaces Tailwind-specific ones
+   ========================================================================== */
+
+/* Backgrounds */
+.bg-primary   { background-color: var(--bg-primary) !important; }
+.bg-secondary { background-color: var(--bg-secondary) !important; }
+.bg-card      { background-color: var(--bg-card) !important; }
+.bg-input-bg  { background-color: var(--bg-input) !important; }
+.bg-gold-dim  { background-color: var(--gold-dim) !important; }
+
+/* Texts */
+.text-primary      { color: var(--text-primary) !important; }
+.text-secondary    { color: var(--text-secondary) !important; }
+.text-luxury-gold  { color: var(--gold) !important; }
+.text-muted        { color: var(--text-muted) !important; }
+
+/* Borders */
+.border-color         { border-color: var(--border) !important; }
+.border-subtle        { border-color: var(--border) !important; }
+.border-luxury-gold   { border-color: var(--gold) !important; }
+
+/* Shadows */
+.shadow-lux  { box-shadow: var(--shadow-card) !important; }
+
+/* Accent light bg for icons */
+.bg-accent-gold-light { background-color: var(--gold-dim) !important; }
+
+/* WhatsApp pulse */
+header a[href*="whatsapp"] {
+  animation: wpBeat 2.5s ease-in-out infinite;
+}
+
+/* ==========================================================================
+   🌟 Special Effects
+   ========================================================================== */
+
+/* Shimmer on gold text */
+.shimmer-gold {
+  background: linear-gradient(90deg, var(--gold), var(--gold-light), var(--gold));
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: shimmer 3s linear infinite;
+}
+
+/* Divider line with gold */
+.divider-gold {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold-border), transparent);
+  border: none;
+  margin: 0;
+}
+
+/* Scrollable panel */
+.scrollable-panel {
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--gold) var(--bg-secondary);
+}
+
+/* Adhkar tab buttons */
+.adhkar-tab {
+  padding: 0.4rem 1rem;
+  border-radius: 0.5rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  font-family: var(--font-body);
+  cursor: pointer;
+  border: none;
+  transition: background var(--speed) ease, color var(--speed) ease;
+  background: transparent;
+  color: var(--text-secondary);
+}
+
+.adhkar-tab.active {
+  background: var(--gold);
+  color: #1A0F08;
+}
+
+/* Glow effect on hover */
+.glow-on-hover:hover {
+  border-color: var(--gold-border) !important;
+  box-shadow: var(--shadow-hover) !important;
+}
+
+/* Scale on hover */
+.hover-lift:hover {
+  transform: translateY(-3px);
+}
+
+/* Badge pill */
+.badge-pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.15rem 0.6rem;
+  border-radius: 9999px;
+  font-size: 0.65rem;
+  font-weight: 700;
+}
+
+.badge-gold {
+  background: var(--gold);
+  color: #1A0F08;
+}
+
+.badge-ghost {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border);
+  color: var(--text-secondary);
+}
+
+/* ==========================================================================
+   📐 Responsive Tweaks
+   ========================================================================== */
+
+@media (max-width: 640px) {
+  .login-card { padding: 2rem 1.5rem; }
+  .feature-card { height: auto; min-height: 260px; }
+  .branch-card { height: auto; min-height: 160px; }
+  .member-card { height: auto; min-height: 170px; }
+}
+
+/* ==========================================================================
+   📱 Mobile Bottom Navigation Bar & Modal Scrolling Fixes
+   ========================================================================== */
+
+/* Bottom Navigation Bar */
+.mobile-bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 64px;
+  background: var(--bg-glass);
+  backdrop-filter: var(--blur-glass);
+  -webkit-backdrop-filter: var(--blur-glass);
+  border-top: 1px solid var(--border);
+  display: none;
+  justify-content: space-around;
+  align-items: center;
+  z-index: 999;
+  box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.05);
+}
+
+[data-theme="dark"] .mobile-bottom-nav {
+  background: rgba(11, 15, 25, 0.85);
+  border-top-color: rgba(99, 102, 241, 0.18);
+  box-shadow: 0 -4px 32px rgba(0, 0, 0, 0.3);
+}
+
+.mobile-nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  color: var(--text-secondary);
+  text-decoration: none;
+  font-size: 0.65rem;
+  font-weight: 600;
+  font-family: var(--font-body);
+  transition: color 0.2s, transform 0.2s;
+  flex: 1;
+  height: 100%;
+}
+
+.mobile-nav-item i {
+  font-size: 1.15rem;
+  transition: transform 0.2s;
+}
+
+.mobile-nav-item:hover, .mobile-nav-item.active {
+  color: var(--gold);
+}
+
+[data-theme="dark"] .mobile-nav-item:hover, 
+[data-theme="dark"] .mobile-nav-item.active {
+  color: #a78bfa; /* Violet accent matching theme */
+}
+
+.mobile-nav-item.active i {
+  transform: translateY(-2px);
+}
+
+/* Adjust general layouts on mobile to accommodate bottom nav */
+@media (max-width: 768px) {
+  .mobile-bottom-nav {
+    display: flex;
+  }
+  body {
+    padding-bottom: 64px !important; /* reserve space for mobile bottom nav */
+  }
+}
+
+/* Mobile Modals Scrollability & Centering Fix */
+@media (max-width: 640px) {
+  .modal-backdrop {
+    padding: 0.75rem !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+  
+  .modal-content {
+    max-h-[90vh] !important;
+    display: flex !important;
+    flex-direction: column !important;
+    width: 100% !important;
+    margin: 0 auto !important;
+  }
+
+  /* Sticky header, scrollable body for Person Details modal */
+  #details-modal .modal-content > div:last-child {
+    overflow-y: auto !important;
+    max-height: calc(90vh - 7rem) !important;
+    padding: 1.25rem !important;
+  }
+
+  /* Form Scrollability inside upload image modal */
+  #upload-modal .modal-content, 
+  #memory-upload-modal .modal-content {
+    overflow-y: auto !important;
+    max-height: 90vh !important;
+  }
+}
+

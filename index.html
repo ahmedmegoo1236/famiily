@@ -1,0 +1,1063 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" class="scroll-smooth" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>بوابة عائلة شرباص</title>
+  
+  <meta name="description" content="البوابة الرسمية الفاخرة لعائلة شرباص. شجرة العائلة التفاعلية، دليل البحث، سجل المناسبات، والقرآن الكريم.">
+  <meta name="author" content="المهندس أحمد مجاهد رجب">
+  
+  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          backgroundColor: {
+            primary: 'var(--bg-primary)',
+            secondary: 'var(--bg-secondary)',
+            card: 'var(--bg-card)',
+            'input-bg': 'var(--input-bg)',
+            'modal-bg': 'var(--modal-bg)',
+            'accent-gold-light': 'var(--accent-gold-light)',
+          },
+          textColor: {
+            primary: 'var(--text-primary)',
+            secondary: 'var(--text-secondary)',
+            'luxury-gold': 'var(--accent-gold)',
+            'luxury-cocoa': 'var(--text-primary)',
+          },
+          borderColor: {
+            color: 'var(--border-color)',
+            subtle: 'var(--border-subtle)',
+            'luxury-gold': 'var(--accent-gold)',
+          },
+          colors: {
+            luxury: {
+              cream: '#FAF6EE',
+              linen: '#F3ECE0',
+              cocoa: '#2E1F15',
+              gold: '#C5A059',
+              goldDark: '#A38141'
+            }
+          }
+        }
+      }
+    }
+  </script>
+  
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+</head>
+<body style="background-color:var(--bg-primary);color:var(--text-primary);" class="antialiased">
+
+  <!-- ==========================================
+       شاشة تسجيل الدخول – Premium Login
+       ========================================== -->
+  <div id="login-screen" class="fixed inset-0 z-50 flex items-center justify-center p-4" style="transition:opacity 0.4s ease;">
+    <!-- زر تبديل السمة في الزاوية -->
+    <div style="position:absolute;top:1.5rem;left:1.5rem;">
+      <button id="login-theme-btn" onclick="toggleTheme()" title="تبديل الوضع" aria-label="تبديل السمة"
+        style="width:40px;height:40px;border-radius:50%;border:1px solid var(--border);background:var(--bg-card);color:var(--gold);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:transform 0.2s;">
+        <i id="login-theme-icon" class="fa-solid fa-moon"></i>
+      </button>
+    </div>
+
+    <!-- البطاقة الرئيسية -->
+    <div class="login-card fade-in-up">
+      <!-- الشعار الدائري -->
+      <div class="login-logo-ring">
+        <img src="assets/images/logo.jpg" alt="شعار عائلة شرباص" onerror="this.style.display='none'">
+      </div>
+
+      <h1 style="font-family:var(--font-title);font-size:2rem;font-weight:700;color:var(--text-primary);margin-bottom:0.25rem;">عائلة شرباص</h1>
+      <p style="font-size:0.75rem;color:var(--text-secondary);margin-bottom:2rem;">بوابة التوثيق والتواصل العائلي</p>
+
+      <form id="login-form" onsubmit="handleLogin(event)" style="display:flex;flex-direction:column;gap:1rem;">
+        <div style="text-align:right;">
+          <label for="password-input" style="display:block;font-size:0.75rem;font-weight:600;color:var(--text-secondary);margin-bottom:0.5rem;">كلمة المرور الخاصة بالعائلة</label>
+          <div style="position:relative;">
+            <span style="position:absolute;inset-block:0;right:1rem;display:flex;align-items:center;color:var(--gold);pointer-events:none;">
+              <i class="fa-solid fa-lock"></i>
+            </span>
+            <input type="password" id="password-input" required placeholder="أدخل كلمة المرور"
+              class="lux-input"
+              style="padding-right:2.75rem;padding-left:3rem;text-align:center;letter-spacing:0.15em;">
+            <button type="button" onclick="togglePasswordVisibility()" aria-label="عرض كلمة المرور"
+              style="position:absolute;inset-block:0;left:0.75rem;background:none;border:none;color:var(--text-secondary);cursor:pointer;transition:color 0.2s;display:flex;align-items:center;">
+              <i id="password-toggle-icon" class="fa-solid fa-eye"></i>
+            </button>
+          </div>
+        </div>
+
+        <button type="submit" class="lux-btn-gold" style="width:100%;justify-content:center;padding:0.85rem;font-size:0.95rem;">
+          <span>دخول البوابة</span>
+          <i class="fa-solid fa-arrow-left"></i>
+        </button>
+      </form>
+
+      <div style="margin-top:1.75rem;padding-top:1rem;border-top:1px solid var(--border);">
+        <p style="font-size:0.68rem;color:var(--text-muted);">إعداد وتطوير المهندس/ أحمد مجاهد رجب</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================
+       المحتوى الرئيسي للموقع (Main Authorized Content)
+       ========================================== -->
+  <div id="main-content" style="display:none;min-height:100vh;flex-direction:column;" class="flex flex-col">
+    <!-- السبحة الإلكترونية المثبتة بالأعلى -->
+    <div id="top-tasbeeh-bar" class="bg-card border-b border-color py-2 px-4 text-center flex flex-wrap items-center justify-center gap-3 text-xs font-semibold text-luxury-gold shadow-sm z-50">
+      <span class="flex items-center gap-1.5"><i class="fa-solid fa-hands-praying"></i> الذكر الحالي: <span id="top-tasbeeh-phrase" class="text-primary font-bold">سبحان الله</span></span>
+      <span class="px-2.5 py-0.5 bg-secondary border border-color rounded-lg text-primary font-mono"><span id="top-tasbeeh-count">0</span> / 30</span>
+      <button onclick="incrementTasbeeh()" class="px-3.5 py-1 bg-luxury-gold text-black rounded-lg text-[10px] font-bold hover:scale-[1.02] active:scale-95 transition-all shadow-sm">تسبيح ✦</button>
+    </div>
+    <!-- الهيدر الفاخر -->
+    <header>
+      <div class="header-container">
+        <!-- Right Column: Brand & Static Credit Line -->
+        <div class="header-right">
+          <a href="#home" class="brand-link">
+            <h2 class="brand-title luxury-line">عائلة شرباص</h2>
+          </a>
+          <p class="static-credit-line hidden sm:block">إعداد المهندس: Ahmed Megahed Ragab</p>
+        </div>
+
+        <!-- Center Column: Glowing Credit Bubble – Always Visible in Header -->
+        <div class="header-center hidden md:flex">
+          <div class="author-bubble" id="header-credit-bubble" onclick="openDetailsModal('ahmed_megahed')" title="تفاصيل المهندس المطور ✦">
+            <i class="fa-solid fa-pen-nib" style="font-size:0.7rem;opacity:0.75;margin-left:0.4em;"></i>
+            <span>إعداد المهندس :</span>
+            <span class="highlight-name">Ahmed Megahed Ragab</span>
+          </div>
+        </div>
+
+        <!-- Left Column: Navigation Actions -->
+        <div class="header-left">
+          <!-- جروب الواتس -->
+          <a href="https://chat.whatsapp.com/LWBHz8yRsuvLECHqQBXIhJ?s=cl&p=a&mlu=0&ilr=0" target="_blank"
+            style="display:inline-flex;align-items:center;gap:0.4rem;padding:0.45rem 0.85rem;border-radius:9999px;background:#25D366;color:#fff;font-size:0.72rem;font-weight:700;text-decoration:none;box-shadow:0 2px 10px rgba(37,211,102,0.3);transition:transform 0.2s,filter 0.2s;"
+            title="انضم لجروب الواتساب العائلي" aria-label="جروب الواتس">
+            <i class="fa-brands fa-whatsapp"></i>
+            <span class="hidden sm:inline">جروب الواتس</span>
+          </a>
+
+          <!-- دليل البحث -->
+          <a href="#directory" class="hidden sm:inline-flex"
+            style="display:inline-flex;align-items:center;gap:0.4rem;padding:0.45rem 0.85rem;border-radius:9999px;border:1px solid var(--border);background:var(--bg-card);color:var(--text-secondary);font-size:0.72rem;font-weight:600;text-decoration:none;transition:border-color 0.2s,color 0.2s;">
+            <i class="fa-solid fa-magnifying-glass" style="color:var(--gold);font-size:0.65rem;"></i>
+            <span class="hidden sm:inline">دليل البحث</span>
+          </a>
+
+          <!-- تبديل السمة -->
+          <button id="main-theme-btn" onclick="toggleTheme()" aria-label="تبديل السمة"
+            style="width:36px;height:36px;border-radius:50%;border:1px solid var(--border);background:var(--bg-card);color:var(--gold);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:transform 0.2s;font-size:0.85rem;">
+            <i id="main-theme-icon" class="fa-solid fa-moon"></i>
+          </button>
+
+          <!-- تسجيل الخروج -->
+          <button onclick="handleLogout()" title="تسجيل الخروج" aria-label="تسجيل الخروج"
+            style="width:36px;height:36px;border-radius:50%;border:1px solid var(--border);background:var(--bg-card);color:var(--text-secondary);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:color 0.2s;font-size:0.85rem;">
+            <i class="fa-solid fa-right-from-bracket"></i>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <main class="flex-grow max-w-6xl w-full mx-auto px-4 sm:px-6 py-8">
+      
+      <!-- 1. الصفحة الرئيسية (Dashboard View) -->
+      <section id="view-home" class="space-y-8 fade-in hidden">
+        
+        <!-- ==========================================================================
+             أ. الأقسام المميزة العلوية (Dua/deceased, Tasbeeh/Adhkar, Quran API)
+             ========================================================================== -->
+        <!-- ═══ الأقسام المميزة العلوية ═══ -->
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.5rem;">
+
+          <!-- كارت 1: ذكرى الغاليين -->
+          <div class="feature-card" style="text-align:right;">
+            <div style="display:flex;align-items:center;gap:0.6rem;margin-bottom:1rem;padding-bottom:0.75rem;border-bottom:1px solid var(--border);">
+              <span class="card-icon-badge"><i class="fa-solid fa-heart-pulse"></i></span>
+              <h3 style="font-family:var(--font-title);font-size:0.9rem;font-weight:700;color:var(--text-primary);">ذكرى الغاليين</h3>
+            </div>
+
+            <div style="display:flex;align-items:center;gap:0.85rem;margin-bottom:0.85rem;">
+              <div style="flex-shrink:0;width:64px;height:64px;border-radius:50%;border:2px solid var(--gold-border);overflow:hidden;background:var(--bg-secondary);">
+                <img id="memorial-img" src="assets/images/logo.jpg" alt="صورة الغاليين" style="width:100%;height:100%;object-fit:cover;" onerror="this.style.display='none'">
+              </div>
+              <div style="flex:1;min-width:0;">
+                <p style="font-size:0.68rem;color:var(--text-muted);margin-bottom:0.4rem;">في قلوبنا دائماً، رحمهم الله:</p>
+                <div style="display:flex;flex-direction:column;gap:0.35rem;">
+                  <div style="display:flex;align-items:center;gap:0.5rem;padding:0.35rem 0.6rem;background:var(--bg-secondary);border-radius:0.5rem;border:1px solid var(--border);">
+                    <span style="width:6px;height:6px;border-radius:50%;background:var(--gold);flex-shrink:0;"></span>
+                    <span style="font-size:0.72rem;font-weight:700;font-family:var(--font-title);color:var(--text-primary);">رجب مجاهد</span>
+                  </div>
+                  <div style="display:flex;align-items:center;gap:0.5rem;padding:0.35rem 0.6rem;background:var(--bg-secondary);border-radius:0.5rem;border:1px solid var(--border);">
+                    <span style="width:6px;height:6px;border-radius:50%;background:var(--gold);flex-shrink:0;"></span>
+                    <span style="font-size:0.72rem;font-weight:700;font-family:var(--font-title);color:var(--text-primary);">مجدي محمد</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div style="flex:1;padding:0.9rem;background:var(--gold-dim);border:1px solid var(--gold-border);border-radius:0.85rem;display:flex;flex-direction:column;justify-content:space-between;margin-top:auto;">
+              <p id="deceased-dua-text" style="font-size:0.72rem;line-height:1.85;font-style:italic;color:var(--text-primary);text-align:center;">
+                "اللهم اغفر لهم وارحمهم وعافهم واعف عنهم، وأكرم نزلهم واجعل قبورهم روضة من رياض الجنة."
+              </p>
+              <button onclick="cycleDeceasedDua()" style="margin-top:0.6rem;font-size:0.68rem;color:var(--gold);background:none;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:0.35rem;font-weight:700;font-family:var(--font-body);">
+                <i class="fa-solid fa-rotate"></i><span>دعاء آخر</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- كارت 2: الأذكار والسبحة -->
+          <div class="feature-card" style="text-align:right;">
+            <div style="display:flex;align-items:center;gap:0.6rem;margin-bottom:1rem;padding-bottom:0.75rem;border-bottom:1px solid var(--border);">
+              <span class="card-icon-badge"><i class="fa-solid fa-hands-praying"></i></span>
+              <h3 style="font-family:var(--font-title);font-size:0.9rem;font-weight:700;color:var(--text-primary);">الأذكار والسبحة</h3>
+            </div>
+
+            <div style="height:80px;overflow-y:auto;margin-bottom:0.85rem;">
+              <p id="adhkar-content-text" class="adhkar-content-text">
+                أشهد أن لا إله إلا الله وحده لا شريك له، له الملك وله الحمد وهو على كل شيء قدير.
+              </p>
+            </div>
+
+            <div style="padding:0.75rem;background:var(--bg-secondary);border-radius:0.85rem;border:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;gap:0.75rem;margin-bottom:0.7rem;">
+              <div>
+                <span style="display:block;font-size:0.6rem;color:var(--text-muted);">التسبيح الإلكتروني</span>
+                <span id="tasbeeh-phrase" style="font-size:0.75rem;font-weight:700;color:var(--gold);">سبحان الله</span>
+              </div>
+              <div style="display:flex;align-items:center;gap:0.6rem;">
+                <span id="tasbeeh-count" style="font-size:1.5rem;font-weight:900;padding-left:0.75rem;border-left:1px solid var(--border);">0</span>
+                <button onclick="incrementTasbeeh()" class="lux-btn-gold" style="padding:0.4rem 0.85rem;font-size:0.72rem;">تسبيح</button>
+              </div>
+            </div>
+
+            <a href="#adhkar" style="display:flex;align-items:center;justify-content:center;gap:0.5rem;padding:0.65rem;border-radius:0.85rem;background:var(--bg-secondary);border:1px solid var(--border);color:var(--gold);font-size:0.72rem;font-weight:700;text-decoration:none;margin-top:auto;transition:background 0.2s,border-color 0.2s;">
+              <i class="fa-solid fa-arrow-left-long" style="font-size:0.65rem;"></i>
+              <span>اقرأ الأذكار (Read Adhkar)</span>
+            </a>
+          </div>
+
+          <!-- كارت 3: المصحف الشريف -->
+          <div class="feature-card" style="text-align:center;">
+            <div style="display:flex;align-items:center;gap:0.6rem;margin-bottom:1rem;padding-bottom:0.75rem;border-bottom:1px solid var(--border);text-align:right;">
+              <span class="card-icon-badge"><i class="fa-solid fa-book-quran"></i></span>
+              <h3 style="font-family:var(--font-title);font-size:0.9rem;font-weight:700;color:var(--text-primary);">المصحف الشريف</h3>
+            </div>
+
+            <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0.75rem;padding:1rem 0;">
+              <i class="fa-solid fa-book-open" style="font-size:2.5rem;color:var(--gold);opacity:0.8;"></i>
+              <h4 style="font-size:0.8rem;font-weight:700;color:var(--text-primary);">بوابة تصفح القرآن الكريم</h4>
+              <p style="font-size:0.72rem;color:var(--text-secondary);line-height:1.7;max-width:200px;">
+                تصفح القرآن الكريم كاملاً بصيغة تفاعلية، بالسور والأجزاء، مع التحكم بحجم الخط.
+              </p>
+            </div>
+
+            <a href="#quran" class="lux-btn-gold" style="width:100%;justify-content:center;padding:0.8rem;font-size:0.85rem;border-radius:0.85rem;margin-top:auto;text-decoration:none;">
+              <i class="fa-solid fa-book-quran"></i>
+              <span>ابدأ القراءة الآن</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- ═══ بوابة عائلة شرباص الرقمية – Stats Banner ═══ -->
+        <div class="lux-card" style="padding:1.5rem 2rem;display:flex;flex-direction:column;align-items:flex-start;gap:1rem;position:relative;overflow:hidden;">
+          <div style="position:absolute;top:0;right:0;width:220px;height:220px;border-radius:50%;background:radial-gradient(circle,var(--gold-dim) 0%,transparent 70%);pointer-events:none;transform:translate(40%,-40%);">
+          </div>
+          <div style="display:flex;flex-direction:column;align-items:flex-start;gap:0.35rem;">
+            <h2 style="font-family:var(--font-title);font-size:1.3rem;font-weight:700;color:var(--gold);">بوابة عائلة شرباص الرقمية</h2>
+            <p style="font-size:0.7rem;color:var(--text-muted);">إحصائيات تفاعلية فورية لأفراد وعوائل رجب شرباص</p>
+          </div>
+          <div style="display:flex;align-items:center;gap:2.5rem;">
+            <div style="text-align:right;">
+              <span id="stat-total-members" style="display:block;font-size:2.25rem;font-weight:900;color:var(--gold);letter-spacing:0.05em;line-height:1;">--</span>
+              <span style="font-size:0.65rem;color:var(--text-muted);">إجمالي الأفراد المسجلين</span>
+            </div>
+            <div style="width:1px;height:40px;background:var(--border);"></div>
+            <div style="text-align:right;">
+              <span id="stat-total-branches" style="display:block;font-size:2.25rem;font-weight:900;color:var(--gold);letter-spacing:0.05em;line-height:1;">9</span>
+              <span style="font-size:0.65rem;color:var(--text-muted);">العوائل الرئيسية</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- ═══ أقسام البوابة العائلية ═══ -->
+        <div>
+          <div style="text-align:center;margin-bottom:1.5rem;">
+            <h3 style="font-family:var(--font-title);font-size:1.2rem;font-weight:700;color:var(--text-primary);display:inline-block;" class="luxury-line">أقسام البوابة العائلية</h3>
+            <p style="font-size:0.7rem;color:var(--text-muted);margin-top:0.5rem;">تصفح شجرة العائلة الكبرى أو اختر أحد عوائل رجب شرباص</p>
+          </div>
+
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.5rem;">
+
+            <!-- 1. شجرة العائلة -->
+            <a href="#tree" class="branch-card branch-card-master" style="color:#F5ECD7;">
+              <div style="display:flex;align-items:center;justify-content:space-between;">
+                <span style="width:44px;height:44px;border-radius:12px;background:rgba(212,168,83,0.2);border:1px solid var(--gold-border);display:flex;align-items:center;justify-content:center;color:var(--gold);font-size:1.1rem;">
+                  <i class="fa-solid fa-diagram-project"></i>
+                </span>
+                <span style="padding:0.15rem 0.6rem;border-radius:9999px;background:var(--gold);color:#1A0F08;font-size:0.65rem;font-weight:700;">النسب الكامل</span>
+              </div>
+              <div>
+                <h4 style="font-family:var(--font-title);font-size:1.05rem;font-weight:700;color:var(--gold);">شجرة العائلة</h4>
+                <p style="font-size:0.7rem;color:rgba(245,236,215,0.6);margin-top:0.3rem;line-height:1.5;">خريطة أنساب متكاملة تدعم التكبير والطي</p>
+              </div>
+            </a>
+
+            <!-- 2. شباب العيلة -->
+            <a href="#youth" class="branch-card" style="color:var(--text-primary);">
+              <div style="display:flex;align-items:center;justify-content:space-between;">
+                <span class="card-icon-badge"><i class="fa-solid fa-user-group"></i></span>
+                <span style="padding:0.15rem 0.6rem;border-radius:9999px;background:var(--bg-secondary);border:1px solid var(--border);color:var(--text-muted);font-size:0.6rem;font-weight:700;">ملتقى الشباب</span>
+              </div>
+              <div>
+                <h4 style="font-family:var(--font-title);font-size:1.05rem;font-weight:700;color:var(--text-primary);transition:color 0.2s;">شباب العيلة</h4>
+                <p style="font-size:0.7rem;color:var(--text-secondary);margin-top:0.3rem;line-height:1.5;">لوحة التقدير وقنوات تواصل شباب العائلة</p>
+              </div>
+            </a>
+
+            <!-- 3–9: عائلات رجب شرباص -->
+            <a href="#branch-metwally" class="branch-card" style="color:var(--text-primary);">
+              <div style="display:flex;align-items:center;justify-content:space-between;">
+                <span class="card-icon-badge"><i class="fa-solid fa-users"></i></span>
+                <span style="font-size:0.65rem;color:var(--text-muted);">أولاد رجب شرباص</span>
+              </div>
+              <div>
+                <h4 style="font-family:var(--font-title);font-size:1.05rem;font-weight:700;color:var(--text-primary);transition:color 0.2s;">متولي</h4>
+                <p style="font-size:0.7rem;color:var(--text-secondary);margin-top:0.3rem;line-height:1.5;">صور وذكريات عائلة متولي وأبنائهم</p>
+              </div>
+            </a>
+
+            <a href="#branch-megahed" class="branch-card" style="color:var(--text-primary);">
+              <div style="display:flex;align-items:center;justify-content:space-between;">
+                <span class="card-icon-badge"><i class="fa-solid fa-users"></i></span>
+                <span style="font-size:0.65rem;color:var(--text-muted);">أولاد رجب شرباص</span>
+              </div>
+              <div>
+                <h4 style="font-family:var(--font-title);font-size:1.05rem;font-weight:700;color:var(--text-primary);transition:color 0.2s;">مجاهد</h4>
+                <p style="font-size:0.7rem;color:var(--text-secondary);margin-top:0.3rem;line-height:1.5;">صور وذكريات عائلة مجاهد وأبنائهم</p>
+              </div>
+            </a>
+
+            <a href="#branch-gamal" class="branch-card" style="color:var(--text-primary);">
+              <div style="display:flex;align-items:center;justify-content:space-between;">
+                <span class="card-icon-badge"><i class="fa-solid fa-users"></i></span>
+                <span style="font-size:0.65rem;color:var(--text-muted);">أولاد رجب شرباص</span>
+              </div>
+              <div>
+                <h4 style="font-family:var(--font-title);font-size:1.05rem;font-weight:700;color:var(--text-primary);transition:color 0.2s;">جمال</h4>
+                <p style="font-size:0.7rem;color:var(--text-secondary);margin-top:0.3rem;line-height:1.5;">صور وذكريات عائلة جمال وأبنائهم</p>
+              </div>
+            </a>
+
+            <a href="#branch-zainab" class="branch-card" style="color:var(--text-primary);">
+              <div style="display:flex;align-items:center;justify-content:space-between;">
+                <span class="card-icon-badge"><i class="fa-solid fa-users"></i></span>
+                <span style="font-size:0.65rem;color:var(--text-muted);">أولاد رجب شرباص</span>
+              </div>
+              <div>
+                <h4 style="font-family:var(--font-title);font-size:1.05rem;font-weight:700;color:var(--text-primary);transition:color 0.2s;">زينب</h4>
+                <p style="font-size:0.7rem;color:var(--text-secondary);margin-top:0.3rem;line-height:1.5;">ألبوم صور ومعلومات عائلة زينب</p>
+              </div>
+            </a>
+
+            <a href="#branch-sona" class="branch-card" style="color:var(--text-primary);">
+              <div style="display:flex;align-items:center;justify-content:space-between;">
+                <span class="card-icon-badge"><i class="fa-solid fa-users"></i></span>
+                <span style="font-size:0.65rem;color:var(--text-muted);">أولاد رجب شرباص</span>
+              </div>
+              <div>
+                <h4 style="font-family:var(--font-title);font-size:1.05rem;font-weight:700;color:var(--text-primary);transition:color 0.2s;">سونه</h4>
+                <p style="font-size:0.7rem;color:var(--text-secondary);margin-top:0.3rem;line-height:1.5;">صور وسجلات عائلة سونه وأبنائهم</p>
+              </div>
+            </a>
+
+            <a href="#branch-basma" class="branch-card" style="color:var(--text-primary);">
+              <div style="display:flex;align-items:center;justify-content:space-between;">
+                <span class="card-icon-badge"><i class="fa-solid fa-users"></i></span>
+                <span style="font-size:0.65rem;color:var(--text-muted);">أولاد رجب شرباص</span>
+              </div>
+              <div>
+                <h4 style="font-family:var(--font-title);font-size:1.05rem;font-weight:700;color:var(--text-primary);transition:color 0.2s;">بسمة</h4>
+                <p style="font-size:0.7rem;color:var(--text-secondary);margin-top:0.3rem;line-height:1.5;">الصور التذكارية لعائلة بسمة وأبنائهم</p>
+              </div>
+            </a>
+
+            <a href="#branch-gamila" class="branch-card" style="color:var(--text-primary);">
+              <div style="display:flex;align-items:center;justify-content:space-between;">
+                <span class="card-icon-badge"><i class="fa-solid fa-users"></i></span>
+                <span style="font-size:0.65rem;color:var(--text-muted);">أولاد رجب شرباص</span>
+              </div>
+              <div>
+                <h4 style="font-family:var(--font-title);font-size:1.05rem;font-weight:700;color:var(--text-primary);transition:color 0.2s;">جميلة</h4>
+                <p style="font-size:0.7rem;color:var(--text-secondary);margin-top:0.3rem;line-height:1.5;">معرض صور وسجلات عائلة جميلة</p>
+              </div>
+            </a>
+          </div>
+        </div>
+
+        <!-- قسم ذكريات العيلة الجديد (Family Memories Module) -->
+        <div class="border-t border-color pt-8 mt-10 space-y-6">
+          <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+            <div>
+              <h3 class="text-xl font-bold font-title text-luxury-gold flex items-center gap-2">
+                <span class="w-9 h-9 rounded-lg bg-accent-gold-light border border-color flex items-center justify-center text-luxury-gold text-base">
+                  <i class="fa-solid fa-photo-film"></i>
+                </span>
+                <span>ذكريات العيلة الكبرى</span>
+              </h3>
+              <p class="text-[10px] text-secondary mt-1">المعرض التشاركي للصور والفيديوهات التذكارية لعائلة شرباص</p>
+            </div>
+            
+            <button onclick="openMemoryUploadModal()" class="px-4 py-2 bg-luxury-gold hover:bg-luxury-goldDark text-white text-xs font-semibold rounded-xl transition-all duration-200 flex items-center gap-1.5 shadow-sm hover:scale-[1.01] active:scale-95">
+              <i class="fa-solid fa-cloud-arrow-up"></i>
+              <span>شاركنا ذكرى جديدة</span>
+            </button>
+          </div>
+          
+          <!-- شبكة عرض ذكريات الميديا التشاركية -->
+          <div id="memories-media-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+            <!-- يملأ ديناميكياً برمجياً -->
+          </div>
+        </div>
+      </section>
+      
+      <!-- 2. دليل البحث الفوري (Clean Directory & Search View) -->
+      <section id="view-directory" class="space-y-6 fade-in hidden text-right">
+        <div class="flex flex-col md:flex-row items-center justify-between gap-4 pb-4 border-b border-color">
+          <div>
+            <h3 class="text-2xl font-bold font-title">دليل أفراد العائلة</h3>
+            <p class="text-xs text-secondary mt-1">البحث المباشر واستعراض معلومات الأفراد بالكامل</p>
+          </div>
+          
+          <a href="#home" class="px-4 py-2 rounded-full border border-color hover:border-luxury-gold text-xs font-semibold hover:text-luxury-gold transition-all duration-300 shadow-sm flex items-center gap-1.5">
+            <i class="fa-solid fa-arrow-right-long text-[10px]"></i>
+            <span>الرجوع للرئيسية</span>
+          </a>
+        </div>
+        
+        <div class="relative w-full max-w-md mx-auto">
+          <span class="absolute inset-y-0 right-0 flex items-center pr-3.5 text-luxury-gold text-md">
+            <i class="fa-solid fa-magnifying-glass"></i>
+          </span>
+          <input type="text" id="directory-search-input" oninput="filterDirectory()" placeholder="ابحث بالاسم الأول (starts-with)..." 
+            class="w-full py-3 pr-10 pl-4 rounded-xl border border-color bg-card focus:outline-none focus:border-luxury-gold focus:ring-1 focus:ring-accent-gold-glow transition-all duration-300 shadow-sm text-right text-md">
+        </div>
+        
+        <div id="directory-cards-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+          <!-- يملأ ديناميكياً -->
+        </div>
+      </section>
+      
+      <!-- 3. شباب العيلة (Spatious Youth Grid View) -->
+      <section id="view-youth" class="space-y-6 fade-in hidden text-right">
+        <div class="flex flex-col md:flex-row items-center justify-between gap-4 pb-4 border-b border-color">
+          <div>
+            <h3 class="text-2xl font-bold font-title text-luxury-gold">شباب العيلة</h3>
+            <p class="text-xs text-secondary mt-1">تصفح لوحة التقدير وقنوات التواصل لشباب عائلة شرباص</p>
+          </div>
+          
+          <a href="#home" class="px-4 py-2 rounded-full border border-color hover:border-luxury-gold text-xs font-semibold hover:text-luxury-gold transition-all duration-300 shadow-sm flex items-center gap-1.5">
+            <i class="fa-solid fa-arrow-right-long text-[10px]"></i>
+            <span>الرجوع للرئيسية</span>
+          </a>
+        </div>
+        
+        <!-- شبكة شباب العيلة المرتبة بدقة -->
+        <div id="youth-cards-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+          <!-- يملأ برمجياً بالترتيب المطلوب -->
+        </div>
+      </section>
+      
+      <!-- 4. شجرة العائلة (Family Tree View) -->
+      <section id="view-tree" class="space-y-4 fade-in hidden text-right">
+        <div class="flex flex-col md:flex-row items-center justify-between gap-4 pb-3 border-b border-color">
+          <div>
+            <h3 class="text-2xl font-bold font-title text-luxury-gold">شجرة النسب</h3>
+            <p class="text-xs text-secondary mt-1">تصفح الشجرة الذكية بالطي، الفرد والتكبير</p>
+          </div>
+          
+          <div class="flex flex-wrap items-center gap-3">
+            <div class="relative">
+              <input type="text" id="tree-search-input" placeholder="ابحث وانتقل للعقدة..." 
+                class="w-48 py-1.5 pr-8 pl-3 text-xs rounded-full border border-color bg-card focus:outline-none focus:border-luxury-gold shadow-sm text-right">
+              <span class="absolute inset-y-0 right-0 flex items-center pr-3 text-luxury-gold text-[10px]">
+                <i class="fa-solid fa-magnifying-glass"></i>
+              </span>
+              <div id="tree-search-suggestions" class="absolute left-0 right-0 mt-2 max-h-40 overflow-y-auto bg-card border border-color rounded-xl shadow-lux z-50 hidden text-right text-xs"></div>
+            </div>
+            
+            <div class="flex items-center rounded-full border border-color bg-card overflow-hidden shadow-sm">
+              <button onclick="zoomTree(1.2)" class="px-2.5 py-1.5 text-secondary hover:text-luxury-gold border-l border-color transition-colors" title="تكبير"><i class="fa-solid fa-plus text-xs"></i></button>
+              <button onclick="resetTreeZoom()" class="px-2.5 py-1.5 text-secondary hover:text-luxury-gold border-l border-color transition-colors" title="توسيط"><i class="fa-solid fa-arrows-to-eye text-xs"></i></button>
+              <button onclick="zoomTree(0.8)" class="px-2.5 py-1.5 text-secondary hover:text-luxury-gold transition-colors" title="تصغير"><i class="fa-solid fa-minus text-xs"></i></button>
+            </div>
+            
+            <a href="#home" class="px-3.5 py-1.5 rounded-full border border-color hover:border-luxury-gold text-xs font-semibold hover:text-luxury-gold transition-all duration-300 shadow-sm flex items-center gap-1.5">
+              <i class="fa-solid fa-arrow-right-long text-[10px]"></i>
+              <span>الرئيسية</span>
+            </a>
+          </div>
+        </div>
+        
+        <div id="d3-tree-wrapper" class="relative rounded-2xl overflow-hidden border border-color shadow-lux bg-card">
+          <div class="absolute top-3 right-3 z-10 px-3 py-1 rounded-full bg-accent-gold-light border border-color text-[9px] text-luxury-gold font-medium pointer-events-none">
+            اسحب للتحريك • استخدم عجلة الماوس للزوم • اضغط على العقد للطي أو الفرد
+          </div>
+          <div id="tree-svg-container" class="w-full h-[600px] overflow-hidden"></div>
+        </div>
+      </section>
+      
+      <!-- 5. ألبوم العوائل الفردية (Branches Detail View) -->
+      <section id="view-branch" class="space-y-8 fade-in hidden text-right">
+        <div class="flex flex-col md:flex-row items-center justify-between gap-4 pb-4 border-b border-color">
+          <div>
+            <h3 class="text-2xl font-bold font-title flex items-center gap-2">
+              <span class="w-10 h-10 rounded-xl bg-accent-gold-light border border-color flex items-center justify-center text-luxury-gold" id="branch-icon-placeholder">
+                <i class="fa-solid fa-users"></i>
+              </span>
+              <span id="branch-title-placeholder">عائلة</span>
+            </h3>
+            <p class="text-xs text-secondary mt-1" id="branch-desc-placeholder">سجل أفراد العائلة وألبوم الصور</p>
+          </div>
+          
+          <a href="#home" class="px-4 py-2 rounded-full border border-color hover:border-luxury-gold text-xs font-semibold hover:text-luxury-gold transition-all duration-300 shadow-lux flex items-center gap-1.5">
+            <i class="fa-solid fa-arrow-right-long text-[10px]"></i>
+            <span>الرجوع للرئيسية</span>
+          </a>
+        </div>
+        
+        <div>
+          <h4 class="text-lg font-bold font-title mb-4 luxury-line inline-block">أفراد العائلة</h4>
+          <div id="branch-members-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+            <!-- يملأ ديناميكياً -->
+          </div>
+        </div>
+        
+        <div class="border-t border-color pt-8 space-y-4">
+          <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+            <div>
+              <h4 class="text-lg font-bold font-title">ألبوم الصور التذكارية</h4>
+              <p class="text-[10px] text-secondary mt-1">تصفح الصور أو قم بإضافة صورة جديدة لعرضها بالألبوم</p>
+            </div>
+            
+            <button onclick="openUploadModal()" class="px-4 py-2 bg-luxury-gold hover:bg-luxury-goldDark text-white text-xs font-semibold rounded-xl transition-all duration-200 flex items-center gap-1.5 shadow-sm">
+              <i class="fa-solid fa-cloud-arrow-up"></i>
+              <span>رفع صورة جديدة</span>
+            </button>
+          </div>
+          
+          <div id="branch-gallery-container" class="gallery-grid">
+            <!-- يملأ ديناميكياً -->
+          </div>
+        </div>
+      </section>
+
+      <!-- 6. المصحف الشريف الكامل (Full-Page Quran View) -->
+      <section id="view-quran" class="space-y-6 fade-in hidden text-right">
+        <div class="flex flex-col md:flex-row items-center justify-between gap-4 pb-4 border-b border-color">
+          <div>
+            <h3 class="text-2xl font-bold font-title text-luxury-gold flex items-center gap-2">
+              <span class="w-10 h-10 rounded-xl bg-accent-gold-light border border-color flex items-center justify-center text-luxury-gold">
+                <i class="fa-solid fa-book-quran"></i>
+              </span>
+              <span>المصحف الشريف الكامل</span>
+            </h3>
+            <p class="text-xs text-secondary mt-1">تصفح وقراءة آيات القرآن الكريم بالسور أو الأجزاء</p>
+          </div>
+          
+          <a href="#home" class="px-4 py-2 rounded-full border border-color hover:border-luxury-gold text-xs font-semibold hover:text-luxury-gold transition-all duration-300 shadow-sm flex items-center gap-1.5">
+            <i class="fa-solid fa-arrow-right-long text-[10px]"></i>
+            <span>الرجوع للرئيسية</span>
+          </a>
+        </div>
+        
+        <div class="grid grid-cols-1 lg:grid-cols-4 gap-6 items-start">
+          <!-- لوحة التحكم بالتصفح -->
+          <div class="p-6 bg-card border border-color rounded-2xl shadow-lux space-y-5">
+            <h4 class="text-sm font-bold font-title border-b border-subtle pb-2 mb-3">خيارات التصفح</h4>
+            
+            <div class="space-y-4">
+              <div>
+                <label for="quran-full-surah-select" class="block text-xs font-semibold text-secondary mb-2 pr-1">السورة الكريمة</label>
+                <select id="quran-full-surah-select" onchange="loadFullQuranSurah()" class="w-full py-2.5 px-3 text-xs rounded-xl border border-color bg-secondary text-primary focus:outline-none focus:border-luxury-gold"></select>
+              </div>
+              
+              <div>
+                <label for="quran-full-juz-select" class="block text-xs font-semibold text-secondary mb-2 pr-1">الجزء المبارك</label>
+                <select id="quran-full-juz-select" onchange="loadFullQuranJuz()" class="w-full py-2.5 px-3 text-xs rounded-xl border border-color bg-secondary text-primary focus:outline-none focus:border-luxury-gold">
+                  <option value="">اختر جزءاً</option>
+                </select>
+              </div>
+            </div>
+            
+            <div class="border-t border-subtle pt-4 space-y-3">
+              <span class="block text-xs font-semibold text-secondary pr-1">تخصيص القراءة</span>
+              <div class="flex items-center justify-between gap-3 p-2 bg-secondary rounded-xl border border-subtle">
+                <span class="text-[10px] text-secondary">حجم خط الآيات</span>
+                <div class="flex items-center rounded-lg border border-color bg-card overflow-hidden">
+                  <button onclick="changeFullQuranFontSize(2)" class="px-3 py-1.5 text-xs text-secondary hover:text-luxury-gold border-l border-color transition-colors"><i class="fa-solid fa-magnifying-glass-plus"></i></button>
+                  <button onclick="changeFullQuranFontSize(-2)" class="px-3 py-1.5 text-xs text-secondary hover:text-luxury-gold transition-colors"><i class="fa-solid fa-magnifying-glass-minus"></i></button>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- شاشة عرض الآيات -->
+          <div class="lg:col-span-3 p-8 bg-card border border-color rounded-2xl shadow-lux flex flex-col min-h-[550px]">
+            <div id="quran-full-title" class="text-center font-title text-xl text-luxury-gold border-b border-subtle pb-3 mb-6 font-bold">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</div>
+            <div class="flex-grow overflow-y-auto px-2 max-h-[500px] scrollbar-thin">
+              <p id="quran-full-text" class="font-serif leading-[2.6] text-center text-primary pr-2 select-text whitespace-normal" style="font-size: 20px;">
+                الرجاء اختيار سورة كريمة أو جزء مبارك من القائمة الجانبية لبدء القراءة والتدبر...
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 7. الأذكار والسبحة الإلكترونية الكاملة (Full-Page Adhkar View) -->
+      <section id="view-adhkar" class="space-y-6 fade-in hidden text-right">
+        <div class="flex flex-col md:flex-row items-center justify-between gap-4 pb-4 border-b border-color">
+          <div>
+            <h3 class="text-2xl font-bold font-title text-luxury-gold flex items-center gap-2">
+              <span class="w-10 h-10 rounded-xl bg-accent-gold-light border border-color flex items-center justify-center text-luxury-gold">
+                <i class="fa-solid fa-hands-praying"></i>
+              </span>
+              <span>سجل الأذكار والسبحة الكبرى</span>
+            </h3>
+            <p class="text-xs text-secondary mt-1">تصفح أذكار الصباح والمساء والأذكار العامة واستمتع بالسبحة الإلكترونية الكبرى</p>
+          </div>
+          
+          <a href="#home" class="px-4 py-2 rounded-full border border-color hover:border-luxury-gold text-xs font-semibold hover:text-luxury-gold transition-all duration-300 shadow-sm flex items-center gap-1.5">
+            <i class="fa-solid fa-arrow-right-long text-[10px]"></i>
+            <span>الرجوع للرئيسية</span>
+          </a>
+        </div>
+        
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 items-start">
+          <!-- لوحة الأذكار الصباحية والمسائية -->
+          <div class="lg:col-span-2 p-6 bg-card border border-color rounded-2xl shadow-lux flex flex-col h-[580px]">
+            <div class="flex items-center justify-between pb-3 border-b border-subtle mb-4">
+              <h4 class="text-sm font-bold font-title">أوراد الأذكار العائلية</h4>
+              
+              <div class="flex items-center rounded-xl border border-color bg-secondary overflow-hidden p-0.5 shadow-sm">
+                <button id="full-adhkar-sabah-btn" onclick="switchFullAdhkarType('sabah')" class="px-4 py-1.5 text-xs font-bold rounded-lg bg-luxury-gold text-white transition-all shadow-sm">أذكار الصباح</button>
+                <button id="full-adhkar-masa-btn" onclick="switchFullAdhkarType('masa')" class="px-4 py-1.5 text-xs font-bold rounded-lg text-secondary transition-all">أذكار المساء</button>
+                <button id="full-adhkar-general-btn" onclick="switchFullAdhkarType('general')" class="px-4 py-1.5 text-xs font-bold rounded-lg text-secondary transition-all">أذكار عامة</button>
+              </div>
+            </div>
+            
+            <!-- قائمة الأذكار الفاخرة مع عدادات فردية -->
+            <div id="full-adhkar-list-container" class="flex-grow overflow-y-auto space-y-3 pr-1.5 scrollbar-thin">
+              <!-- يملأ ديناميكياً برمجياً -->
+            </div>
+          </div>
+          
+          <!-- لوحة السبحة الإلكترونية الكبرى -->
+          <div class="p-6 bg-card border border-color rounded-2xl shadow-lux flex flex-col justify-between h-[580px] text-center">
+            <div>
+              <div class="pb-3 border-b border-subtle mb-6 text-right">
+                <h4 class="text-sm font-bold font-title">السبحة الإلكترونية الكبرى</h4>
+              </div>
+              
+              <div class="py-8 flex flex-col items-center justify-center gap-4">
+                <div class="text-center">
+                  <span class="block text-xs text-secondary mb-1">الورد الحالي للتسبيح</span>
+                  <span id="full-tasbeeh-phrase" class="text-lg font-bold text-luxury-gold tracking-wide">سبحان الله</span>
+                </div>
+                
+                <!-- عداد التسبيح الدائري الضخم -->
+                <div class="w-44 h-44 rounded-full border-4 border-luxury-gold flex flex-col items-center justify-center bg-secondary/40 shadow-lux relative group hover:scale-[1.01] transition-transform duration-300 mx-auto">
+                  <span id="full-tasbeeh-count" class="text-5xl font-bold font-sans text-primary tracking-widest">0</span>
+                  <span class="text-[9px] text-secondary mt-1 font-light">تسبيحة</span>
+                </div>
+              </div>
+            </div>
+            
+            <div class="space-y-3 mt-auto">
+              <!-- زر التسبيح والضغط الضخم -->
+              <button onclick="incrementFullTasbeeh()" class="w-full py-4 bg-luxury-gold hover:bg-luxury-goldDark text-white font-bold rounded-2xl hover:scale-[1.01] active:scale-95 transition-all text-sm shadow-md flex items-center justify-center gap-2">
+                <i class="fa-solid fa-fingerprint text-base"></i>
+                <span>اضغط للتسبيح</span>
+              </button>
+              
+              <div class="grid grid-cols-2 gap-2">
+                <button onclick="resetFullTasbeeh()" class="py-2.5 bg-secondary hover:bg-red-500/10 text-secondary hover:text-red-500 font-semibold rounded-xl text-xs border border-color transition-colors flex items-center justify-center gap-1.5 shadow-sm">
+                  <i class="fa-solid fa-trash-can"></i>
+                  <span>تصفير العداد</span>
+                </button>
+                <button onclick="cycleFullTasbeehPhrase()" class="py-2.5 bg-secondary hover:bg-accent-gold-light text-secondary hover:text-luxury-gold font-semibold rounded-xl text-xs border border-color transition-colors flex items-center justify-center gap-1.5 shadow-sm">
+                  <i class="fa-solid fa-rotate"></i>
+                  <span>الورد التالي</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="border-t border-color py-6 mt-10 bg-secondary text-center text-right mb-16 sm:mb-0">
+      <div class="max-w-6xl mx-auto px-4 text-secondary text-xs">
+        <p class="font-title text-md font-bold text-luxury-cocoa dark:text-white mb-1">عائلة شرباص</p>
+        <p class="text-[10px] font-light">بوابة توثيق الأنساب والتواصل العائلي</p>
+        <p class="text-[9px] mt-4 text-stone-500">جميع الحقوق محفوظة © ٢٠٢٦ • إعداد وتصميم المهندس / أحمد مجاهد رجب</p>
+      </div>
+    </footer>
+
+    <!-- القائمة السفلية للهواتف المحمولة -->
+    <nav class="mobile-bottom-nav">
+      <a href="#home" class="mobile-nav-item active" id="nav-item-home">
+        <i class="fa-solid fa-house"></i>
+        <span>الرئيسية</span>
+      </a>
+      <a href="#tree" class="mobile-nav-item" id="nav-item-tree">
+        <i class="fa-solid fa-diagram-project"></i>
+        <span>الشجرة</span>
+      </a>
+      <a href="#directory" class="mobile-nav-item" id="nav-item-directory">
+        <i class="fa-solid fa-magnifying-glass"></i>
+        <span>الدليل</span>
+      </a>
+      <a href="#quran" class="mobile-nav-item" id="nav-item-quran">
+        <i class="fa-solid fa-book-quran"></i>
+        <span>القرآن</span>
+      </a>
+      <a href="#adhkar" class="mobile-nav-item" id="nav-item-adhkar">
+        <i class="fa-solid fa-hands-praying"></i>
+        <span>الأذكار</span>
+      </a>
+    </nav>
+  </div>
+
+  <!-- ==========================================
+       نوافذ العرض المنبثقة (Modals)
+       ========================================== -->
+       
+  <!-- 1. منبثقة تفاصيل العضو (Person Profile Modal with dynamic local editing) -->
+  <div id="details-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 modal-backdrop opacity-0 pointer-events-none transition-all duration-300">
+    <div class="w-full max-w-lg rounded-2xl bg-card border border-color shadow-lux modal-content overflow-hidden text-right">
+      
+      <!-- هيدر هادئ وراقي -->
+      <div class="relative h-28 bg-gradient-to-l from-[#1F140F] to-[#120B08] flex items-end p-5 border-b border-color">
+        <button onclick="closeDetailsModal()" class="absolute top-4 left-4 w-8 h-8 rounded-full bg-neutral-800 hover:bg-neutral-700 text-white flex items-center justify-center transition-colors" aria-label="إغلاق">
+          <i class="fa-solid fa-xmark text-sm"></i>
+        </button>
+        <!-- الرمز الشخصي الدائري -->
+        <div class="absolute bottom-[-35px] right-6 w-20 h-20 rounded-full border-4 border-card overflow-hidden bg-secondary flex items-center justify-center shadow-md">
+          <img id="modal-avatar" src="" alt="" class="w-full h-full object-cover hidden">
+          <span id="modal-avatar-placeholder" class="text-3xl text-luxury-gold"><i class="fa-solid fa-user"></i></span>
+        </div>
+      </div>
+      
+      <!-- محتوى البيانات الواسع المنسق بطريقة كروت منفصلة -->
+      <div class="pt-12 px-6 pb-6 space-y-5">
+        <div class="flex items-start justify-between">
+          <div>
+            <h3 id="modal-name" class="text-xl font-bold font-title text-luxury-cocoa dark:text-white">أحمد مجاهد رجب</h3>
+            <p id="modal-branch-tag" class="text-[10px] text-luxury-gold mt-1 font-semibold flex items-center gap-1">
+              <i class="fa-solid fa-users"></i>
+              <span id="modal-branch-name">عائلة مجاهد</span>
+            </p>
+            <!-- وسم مكان الإقامة الاختياري لعوائل (سونه، زينب، جميلة، بسمة) -->
+            <p id="modal-residence-tag" class="text-[9px] text-secondary mt-1 font-medium hidden">
+              <i class="fa-solid fa-location-dot"></i>
+              <span id="modal-residence-name">مقيم في: العاشر من رمضان</span>
+            </p>
+          </div>
+          
+          <!-- زر تعديل البيانات الشخصية (Interactive Data Edit) -->
+          <button id="modal-edit-toggle-btn" onclick="toggleModalEditMode()" class="px-3 py-1.5 rounded-lg border border-color bg-secondary text-[10px] hover:border-luxury-gold hover:text-luxury-gold transition-all duration-200 flex items-center gap-1 font-bold shadow-sm">
+            <i class="fa-solid fa-user-pen"></i>
+            <span>تعديل معلوماتي</span>
+          </button>
+        </div>
+
+        <!-- ==========================================
+             أ. وضع القراءة الافتراضي (Read Mode Wrapper)
+             ========================================== -->
+        <div id="modal-read-wrapper" class="space-y-5">
+          <!-- كروت البيانات الشخصية التفصيلية -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <!-- كارت تاريخ الميلاد -->
+            <div class="p-3 bg-secondary rounded-xl border border-subtle flex items-center gap-2.5">
+              <span class="w-8 h-8 rounded-lg bg-accent-gold-light flex items-center justify-center text-luxury-gold text-md">
+                <i class="fa-solid fa-calendar-day"></i>
+              </span>
+              <div>
+                <span class="block text-[9px] text-secondary">تاريخ الميلاد</span>
+                <span id="modal-dob" class="text-xs font-semibold">--/--/----</span>
+              </div>
+            </div>
+
+            <!-- كارت العمر -->
+            <div class="p-3 bg-secondary rounded-xl border border-subtle flex items-center gap-2.5">
+              <span class="w-8 h-8 rounded-lg bg-accent-gold-light flex items-center justify-center text-luxury-gold text-md">
+                <i class="fa-solid fa-hourglass-half"></i>
+              </span>
+              <div>
+                <span class="block text-[9px] text-secondary">العمر</span>
+                <span id="modal-age" class="text-xs font-semibold">غير متوفر</span>
+              </div>
+            </div>
+            
+            <!-- كارت رقم الهاتف مع خاصية النسخ المباشر بضغطة زر -->
+            <div id="modal-phone-container" class="p-3 bg-secondary rounded-xl border border-subtle flex items-center justify-between gap-2 group relative cursor-pointer" onclick="copyModalPhone()">
+              <div class="flex items-center gap-2.5">
+                <span class="w-8 h-8 rounded-lg bg-accent-gold-light flex items-center justify-center text-luxury-gold text-md">
+                  <i class="fa-solid fa-phone"></i>
+                </span>
+                <div>
+                  <span class="block text-[9px] text-secondary">رقم الهاتف</span>
+                  <span id="modal-phone" class="text-xs font-semibold tracking-wider font-sans">--</span>
+                </div>
+              </div>
+              <button class="text-secondary group-hover:text-luxury-gold text-xs transition-colors pl-1" title="نسخ الرقم">
+                <i class="fa-regular fa-copy"></i>
+              </button>
+              
+              <div id="modal-copy-toast" class="absolute -top-9 left-1/2 transform -translate-x-1/2 px-2.5 py-1 rounded-lg bg-neutral-900 text-white text-[10px] opacity-0 pointer-events-none transition-all duration-200">
+                تم نسخ الرقم
+              </div>
+            </div>
+          </div>
+          
+          <!-- قنوات التواصل الاجتماعي الموثقة بأيقونات بروفيشينال -->
+          <div class="space-y-1.5 p-3 bg-secondary rounded-xl border border-subtle">
+            <span class="block text-[9px] text-secondary">قنوات التواصل الموثقة</span>
+            <div id="modal-socials-container" class="flex items-center gap-2">
+              <!-- يملأ ديناميكياً -->
+            </div>
+          </div>
+          
+          <!-- سجل الأبناء الموحد والمريح للعين -->
+          <div id="modal-children-section" class="space-y-2 p-3 bg-secondary rounded-xl border border-subtle">
+            <span class="block text-[9px] text-secondary">الأبناء</span>
+            <div id="modal-children-list" class="flex flex-wrap gap-2">
+              <!-- يملأ ديناميكياً -->
+            </div>
+          </div>
+          
+          <!-- زر التحديث للمسؤول -->
+          <div class="pt-2">
+            <a id="modal-update-btn" href="#" target="_blank" class="w-full py-2.5 bg-secondary hover:bg-accent-gold-light border border-color text-center font-semibold rounded-xl transition-all duration-200 flex items-center justify-center gap-2 text-xs text-secondary hover:text-luxury-gold">
+              <i class="fa-brands fa-whatsapp text-md"></i>
+              <span>طلب تحديث معلومات هذا الشخص</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- ==========================================
+             ب. وضع التعديل التفاعلي المباشر (Edit Mode Wrapper)
+             ========================================== -->
+        <div id="modal-edit-wrapper" class="hidden space-y-4 border-t border-color pt-4">
+          <div class="p-4 bg-secondary rounded-xl border border-subtle space-y-3">
+            <h4 class="text-xs font-bold text-luxury-gold mb-2"><i class="fa-solid fa-pen-to-square"></i> تعديل بيانات التواصل الخاصة بي</h4>
+            
+            <!-- حقل الاسم الأول -->
+            <div class="text-right">
+              <label for="edit-firstname-input" class="block text-[10px] text-secondary mb-1 pr-1">الاسم الأول</label>
+              <input type="text" id="edit-firstname-input" required placeholder="مثال: أحمد" class="w-full py-2 px-3 text-xs rounded-lg border border-color bg-input-bg text-primary focus:outline-none focus:border-luxury-gold">
+            </div>
+            
+            <!-- حقل اسم العائلة -->
+            <div class="text-right">
+              <label for="edit-surname-input" class="block text-[10px] text-secondary mb-1 pr-1">اسم العائلة</label>
+              <input type="text" id="edit-surname-input" required placeholder="مثال: مجاهد رجب" class="w-full py-2 px-3 text-xs rounded-lg border border-color bg-input-bg text-primary focus:outline-none focus:border-luxury-gold">
+            </div>
+
+            <!-- حقل رقم الهاتف -->
+            <div class="text-right">
+              <label for="edit-phone-input" class="block text-[10px] text-secondary mb-1 pr-1">رقم الهاتف</label>
+              <input type="text" id="edit-phone-input" class="w-full py-2 px-3 text-xs rounded-lg border border-color bg-input-bg text-primary focus:outline-none focus:border-luxury-gold">
+            </div>
+            
+            <!-- حقل تاريخ الميلاد -->
+            <div class="text-right">
+              <label for="edit-dob-input" class="block text-[10px] text-secondary mb-1 pr-1">تاريخ الميلاد</label>
+              <input type="text" id="edit-dob-input" placeholder="مثال: 1995-10-25" class="w-full py-2 px-3 text-xs rounded-lg border border-color bg-input-bg text-primary focus:outline-none focus:border-luxury-gold">
+            </div>
+
+            <!-- حقل العمر -->
+            <div class="text-right">
+              <label for="edit-age-input" class="block text-[10px] text-secondary mb-1 pr-1">العمر</label>
+              <input type="text" id="edit-age-input" placeholder="مثال: 21 عاماً" class="w-full py-2 px-3 text-xs rounded-lg border border-color bg-input-bg text-primary focus:outline-none focus:border-luxury-gold">
+            </div>
+            
+            <!-- حقل رابط فيسبوك -->
+            <div class="text-right">
+              <label for="edit-facebook-input" class="block text-[10px] text-secondary mb-1 pr-1">رابط فيسبوك</label>
+              <input type="url" id="edit-facebook-input" class="w-full py-2 px-3 text-xs rounded-lg border border-color bg-input-bg text-primary focus:outline-none focus:border-luxury-gold">
+            </div>
+            
+            <!-- حقل رابط انستغرام -->
+            <div class="text-right">
+              <label for="edit-instagram-input" class="block text-[10px] text-secondary mb-1 pr-1">رابط انستغرام</label>
+              <input type="url" id="edit-instagram-input" class="w-full py-2 px-3 text-xs rounded-lg border border-color bg-input-bg text-primary focus:outline-none focus:border-luxury-gold">
+            </div>
+
+            <!-- حقل رابط واتساب -->
+            <div class="text-right">
+              <label for="edit-whatsapp-input" class="block text-[10px] text-secondary mb-1 pr-1">رقم واتساب (رقم الهاتف بدون فواصل)</label>
+              <input type="text" id="edit-whatsapp-input" class="w-full py-2 px-3 text-xs rounded-lg border border-color bg-input-bg text-primary focus:outline-none focus:border-luxury-gold">
+            </div>
+
+            <!-- حقل رابط تيك توك -->
+            <div class="text-right">
+              <label for="edit-tiktok-input" class="block text-[10px] text-secondary mb-1 pr-1">رابط تيك توك</label>
+              <input type="url" id="edit-tiktok-input" class="w-full py-2 px-3 text-xs rounded-lg border border-color bg-input-bg text-primary focus:outline-none focus:border-luxury-gold">
+            </div>
+
+            <!-- حقل رابط تيليجرام -->
+            <div class="text-right">
+              <label for="edit-telegram-input" class="block text-[10px] text-secondary mb-1 pr-1">رابط تيليجرام</label>
+              <input type="url" id="edit-telegram-input" class="w-full py-2 px-3 text-xs rounded-lg border border-color bg-input-bg text-primary focus:outline-none focus:border-luxury-gold">
+            </div>
+
+            <!-- حقل الصورة الشخصية -->
+            <div class="text-right">
+              <label class="block text-[10px] text-secondary mb-1 pr-1">الصورة الشخصية</label>
+              <div class="flex items-center gap-3">
+                <input type="file" id="edit-avatar-input" accept="image/*" class="hidden" onchange="previewModalAvatar(event)">
+                <button type="button" onclick="document.getElementById('edit-avatar-input').click()" class="px-3.5 py-2 bg-secondary hover:bg-accent-gold-light border border-color rounded-xl text-[10px] font-bold text-luxury-gold transition-all shadow-sm">
+                  <i class="fa-solid fa-camera"></i>
+                  <span>تحميل صورة جديدة</span>
+                </button>
+                <span id="edit-avatar-filename" class="text-[9px] text-secondary italic">لم يتم اختيار ملف</span>
+              </div>
+            </div>
+          </div>
+          
+          <!-- أزرار حفظ أو إلغاء التعديل -->
+          <div class="flex items-center gap-2 pt-2">
+            <button onclick="saveModalChanges()" class="flex-grow py-2.5 bg-luxury-gold hover:bg-luxury-goldDark text-white font-bold rounded-xl transition-all duration-200 text-xs shadow-sm flex items-center justify-center gap-1">
+              <i class="fa-solid fa-floppy-disk"></i>
+              <span>حفظ التعديلات ديناميكياً</span>
+            </button>
+            <button onclick="toggleModalEditMode()" class="py-2.5 px-4 bg-secondary hover:bg-neutral-800 text-primary font-semibold rounded-xl transition-all duration-200 text-xs">
+              إلغاء
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- 2. منبثقة رفع الصور التذكارية -->
+  <div id="upload-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 modal-backdrop opacity-0 pointer-events-none transition-all duration-300">
+    <div class="w-full max-w-md rounded-2xl bg-card border border-color shadow-lux modal-content p-6 text-right">
+      <div class="flex items-center justify-between pb-3 border-b border-subtle mb-4">
+        <h3 class="text-lg font-bold font-title text-luxury-gold">إضافة صورة للألبوم العائلي</h3>
+        <button onclick="closeUploadModal()" class="w-7 h-7 rounded-full bg-secondary hover:bg-neutral-800 text-primary flex items-center justify-center transition-colors" aria-label="إغلاق">
+          <i class="fa-solid fa-xmark text-sm"></i>
+        </button>
+      </div>
+      
+      <form id="gallery-upload-form" onsubmit="handleGalleryUpload(event)" class="space-y-4">
+        <div class="text-right">
+          <label class="block text-xs font-semibold text-secondary mb-2 pr-1">اختيار ملف الصورة</label>
+          <div class="w-full border border-dashed border-color rounded-xl p-5 bg-secondary flex flex-col items-center justify-center gap-2 cursor-pointer hover:border-luxury-gold transition-colors relative" id="upload-drag-area">
+            <span class="text-2xl text-luxury-gold"><i class="fa-solid fa-images"></i></span>
+            <p class="text-[10px] text-secondary text-center">اضغط هنا أو قم بسحب وإفلات صورة لرفعها</p>
+            <input type="file" id="upload-file-input" required accept="image/*" class="absolute inset-0 opacity-0 cursor-pointer" onchange="previewUploadImage(event)">
+          </div>
+          <div id="upload-preview-container" class="mt-3 hidden border border-color rounded-xl overflow-hidden max-h-36 flex justify-center bg-black/10">
+            <img id="upload-preview-img" src="" alt="معاينة الصورة" class="max-h-full object-contain">
+          </div>
+        </div>
+        
+        <div class="text-right">
+          <label for="upload-caption-input" class="block text-xs font-semibold text-secondary mb-2 pr-1">وصف أو عنوان الصورة</label>
+          <input type="text" id="upload-caption-input" required placeholder="مثال: تجمع عائلي في عيد الفطر" 
+            class="w-full py-2.5 px-3 rounded-lg border border-color bg-input-bg text-primary focus:outline-none focus:border-luxury-gold focus:ring-1 focus:ring-accent-gold-glow transition-all duration-300 text-xs">
+        </div>
+        
+        <div class="flex items-center gap-2 pt-2">
+          <button type="submit" class="flex-grow py-2.5 bg-luxury-gold hover:bg-luxury-goldDark text-white font-bold rounded-xl transition-all duration-200 flex items-center justify-center gap-1.5 text-xs shadow-sm">
+            <i class="fa-solid fa-cloud-arrow-up"></i>
+            <span>تأكيد الرفع والمعاينة</span>
+          </button>
+          <button type="button" onclick="closeUploadModal()" class="py-2.5 px-4 bg-secondary hover:bg-neutral-800 text-primary font-semibold rounded-xl transition-colors duration-200 text-xs">
+            إلغاء
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- 3. منبثقة رفع الذكريات التشاركية الميديا (ذكريات العيلة) -->
+  <div id="memory-upload-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 modal-backdrop opacity-0 pointer-events-none transition-all duration-300">
+    <div class="w-full max-w-md rounded-2xl bg-card border border-color shadow-lux modal-content p-6 text-right">
+      <div class="flex items-center justify-between pb-3 border-b border-subtle mb-4">
+        <h3 class="text-lg font-bold font-title text-luxury-gold">مشاركة ذكرى عائلية جديدة</h3>
+        <button onclick="closeMemoryUploadModal()" class="w-7 h-7 rounded-full bg-secondary hover:bg-neutral-800 text-primary flex items-center justify-center transition-colors" aria-label="إغلاق">
+          <i class="fa-solid fa-xmark text-sm"></i>
+        </button>
+      </div>
+      
+      <form id="memory-upload-form" onsubmit="handleMemoryUpload(event)" class="space-y-4">
+        <!-- نوع الملف (صورة أو فيديو) -->
+        <div class="text-right">
+          <label class="block text-xs font-semibold text-secondary mb-2 pr-1">نوع الوسائط</label>
+          <div class="flex items-center gap-4 bg-secondary p-1 rounded-xl border border-color">
+            <button type="button" id="memory-type-image-btn" onclick="selectMemoryType('image')" class="flex-grow py-2 text-xs font-bold rounded-lg bg-luxury-gold text-white transition-all shadow-sm flex items-center justify-center gap-1">
+              <i class="fa-solid fa-image"></i>
+              <span>صورة تذكارية</span>
+            </button>
+            <button type="button" id="memory-type-video-btn" onclick="selectMemoryType('video')" class="flex-grow py-2 text-xs font-bold rounded-lg text-secondary transition-all flex items-center justify-center gap-1">
+              <i class="fa-solid fa-video"></i>
+              <span>فيديو تذكاري</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="text-right">
+          <label class="block text-xs font-semibold text-secondary mb-2 pr-1">اختيار ملف الميديا</label>
+          <div class="w-full border border-dashed border-color rounded-xl p-5 bg-secondary flex flex-col items-center justify-center gap-2 cursor-pointer hover:border-luxury-gold transition-colors relative" id="memory-drag-area">
+            <span class="text-2xl text-luxury-gold"><i class="fa-solid fa-photo-film"></i></span>
+            <p class="text-[10px] text-secondary text-center" id="memory-upload-text">اضغط هنا أو قم بسحب وإفلات صورة لرفعها</p>
+            <input type="file" id="memory-file-input" required accept="image/*" class="absolute inset-0 opacity-0 cursor-pointer" onchange="previewMemoryFile(event)">
+          </div>
+          <div id="memory-preview-container" class="mt-3 hidden border border-color rounded-xl overflow-hidden max-h-36 flex justify-center bg-black/10">
+            <img id="memory-preview-img" src="" alt="معاينة الملف" class="max-h-full object-contain hidden">
+            <video id="memory-preview-video" controls class="max-h-full object-contain hidden"></video>
+          </div>
+        </div>
+        
+        <div class="text-right">
+          <label for="memory-caption-input" class="block text-xs font-semibold text-secondary mb-2 pr-1">عنوان أو وصف الذكرى</label>
+          <input type="text" id="memory-caption-input" required placeholder="مثال: تجمع عائلة شرباص في عيد الأضحى" 
+            class="w-full py-2.5 px-3 rounded-lg border border-color bg-input-bg text-primary focus:outline-none focus:border-luxury-gold focus:ring-1 focus:ring-accent-gold-glow transition-all duration-300 text-xs">
+        </div>
+
+        <div class="text-right">
+          <label for="memory-uploader-input" class="block text-xs font-semibold text-secondary mb-2 pr-1">اسم رافع الذكرى</label>
+          <input type="text" id="memory-uploader-input" required placeholder="أدخل اسمك الكريم" 
+            class="w-full py-2.5 px-3 rounded-lg border border-color bg-input-bg text-primary focus:outline-none focus:border-luxury-gold focus:ring-1 focus:ring-accent-gold-glow transition-all duration-300 text-xs">
+        </div>
+        
+        <div class="flex items-center gap-2 pt-2">
+          <button type="submit" class="flex-grow py-2.5 bg-luxury-gold hover:bg-luxury-goldDark text-white font-bold rounded-xl transition-all duration-200 flex items-center justify-center gap-1.5 text-xs shadow-sm">
+            <i class="fa-solid fa-cloud-arrow-up"></i>
+            <span>تأكيد الرفع والمشاركة</span>
+          </button>
+          <button type="button" onclick="closeMemoryUploadModal()" class="py-2.5 px-4 bg-secondary hover:bg-neutral-800 text-primary font-semibold rounded-xl transition-colors duration-200 text-xs">
+            إلغاء
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="assets/js/data.js"></script>
+  <script src="assets/js/app.js"></script>
+  <script src="assets/js/tree.js"></script>
+</body>
+</html>
