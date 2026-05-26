@@ -1321,6 +1321,18 @@ const FULL_ADHKAR_DATA = {
     { text: 'أستغفر الله وأتوب إليه. (مائة مرة)', count: 100 },
     { text: 'اللهم صل وسلم وبارك على نبينا محمد. (عشر مرات)', count: 10 },
     { text: 'لا حول ولا قوة إلا بالله العلي العظيم. (ثلاث وثلاثين مرة)', count: 33 }
+  ],
+  arafah: [
+    { text: 'لا إله إلا الله وحده لا شريك له، له الملك وله الحمد، وهو على كل شيء قدير. (خير الدعاء دعاء يوم عرفة - مائة مرة)', count: 100 },
+    { text: 'لبيك اللهم لبيك، لبيك لا شريك لك لبيك، إن الحمد والنعمة لك والملك، لا شريك لك. (تلبية الحج - ثلاث وثلاثين مرة)', count: 33 },
+    { text: 'اللهم إنك عفو كريم تحب العفو فاعفُ عني. (طلب العفو والعتق - ثلاث وثلاثين مرة)', count: 33 },
+    { text: 'اللهم إني أسألك الهدى والتقى والعفاف والغنى. (صلاح النفس - عشر مرات)', count: 10 },
+    { text: 'ربنا آتنا في الدنيا حسنة وفي الآخرة حسنة وقنا عذاب النار. (جوامع الدعاء - عشر مرات)', count: 10 },
+    { text: 'لا إله إلا أنت سبحانك إني كنت من الظالمين. (دعاء ذي النون - ثلاث وثلاثين مرة)', count: 33 },
+    { text: 'اللهم إني ظلمت نفسي ظلماً كثيراً ولا يغفر الذنوب إلا أنت، فاغفر لي مغفرة من عندك وارحمني، إنك أنت الغفور الرحيم. (طلب الرحمة والمغفرة - ثلاث مرات)', count: 3 },
+    { text: 'أستغفر الله العظيم الذي لا إله إلا هو الحي القيوم وأتوب إليه. (توبة واستغفار - مائة مرة)', count: 100 },
+    { text: 'اللهم ارزقنا الوقوف بعرفة، وعتق رقابنا من النار، وغفران ذنوبنا، ودخول الجنة مع الأبرار. (دعاء يوم عرفة المبارك - سبع مرات)', count: 7 },
+    { text: 'اللهم صلِّ وسلِّم وبارِك على نبيِّنا محمد وعلى آله وصحبه أجمعين. (مائة مرة)', count: 100 }
   ]
 };
 
@@ -1342,21 +1354,27 @@ function switchFullAdhkarType(type) {
   const sabahBtn = document.getElementById('full-adhkar-sabah-btn');
   const masaBtn = document.getElementById('full-adhkar-masa-btn');
   const generalBtn = document.getElementById('full-adhkar-general-btn');
+  const arafahBtn = document.getElementById('full-adhkar-arafah-btn');
   
   if (sabahBtn) {
     sabahBtn.className = type === 'sabah' 
-      ? 'px-4 py-1.5 text-xs font-bold rounded-lg bg-luxury-gold text-white transition-all shadow-sm' 
-      : 'px-4 py-1.5 text-xs font-bold rounded-lg text-secondary transition-all';
+      ? 'px-3 py-1.5 text-[11px] sm:text-xs font-bold rounded-lg bg-luxury-gold text-white transition-all shadow-sm' 
+      : 'px-3 py-1.5 text-[11px] sm:text-xs font-bold rounded-lg text-secondary transition-all';
   }
   if (masaBtn) {
     masaBtn.className = type === 'masa' 
-      ? 'px-4 py-1.5 text-xs font-bold rounded-lg bg-luxury-gold text-white transition-all shadow-sm' 
-      : 'px-4 py-1.5 text-xs font-bold rounded-lg text-secondary transition-all';
+      ? 'px-3 py-1.5 text-[11px] sm:text-xs font-bold rounded-lg bg-luxury-gold text-white transition-all shadow-sm' 
+      : 'px-3 py-1.5 text-[11px] sm:text-xs font-bold rounded-lg text-secondary transition-all';
   }
   if (generalBtn) {
     generalBtn.className = type === 'general' 
-      ? 'px-4 py-1.5 text-xs font-bold rounded-lg bg-luxury-gold text-white transition-all shadow-sm' 
-      : 'px-4 py-1.5 text-xs font-bold rounded-lg text-secondary transition-all';
+      ? 'px-3 py-1.5 text-[11px] sm:text-xs font-bold rounded-lg bg-luxury-gold text-white transition-all shadow-sm' 
+      : 'px-3 py-1.5 text-[11px] sm:text-xs font-bold rounded-lg text-secondary transition-all';
+  }
+  if (arafahBtn) {
+    arafahBtn.className = type === 'arafah' 
+      ? 'px-3 py-1.5 text-[11px] sm:text-xs font-bold rounded-lg bg-luxury-gold text-white transition-all shadow-sm' 
+      : 'px-3 py-1.5 text-[11px] sm:text-xs font-bold rounded-lg text-secondary transition-all';
   }
   
   renderFullAdhkarList();
@@ -1386,8 +1404,8 @@ function renderFullAdhkarList() {
     }`;
     
     card.innerHTML = `
-      <div class="flex items-start justify-between gap-4">
-        <p class="text-xs leading-loose text-primary font-light flex-grow">${item.text}</p>
+      <div class="flex items-center justify-between gap-4">
+        <p class="text-xs sm:text-sm md:text-[15px] leading-relaxed text-primary font-semibold flex-grow text-right">${item.text}</p>
         
         <button onclick="decrementFullAdhkar('${key}')" 
           ${isCompleted ? 'disabled' : ''}
